@@ -28,5 +28,8 @@ typedef struct		s_elements
 	char	*e_path;
 	char	*spr_path;
 }					t_elements;
-
+int		get_floor_color();
+int		get_ceilling_color();
+void	create_hex_color();
 #endif
+

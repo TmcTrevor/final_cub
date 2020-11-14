@@ -21,7 +21,10 @@ int	start_game()
 		return -1;
 	if (!(mlx.mlx_ptr = mlx_init()))
 		return -1;
-	mlx.win = mlx_new_window(mlx.mlx_ptr, 500, 500, "TreVor");
+	mlx.win = mlx_new_window(mlx.mlx_ptr, map.el.res_x, map.el.res_y, "TreVor");
+	img.img_ptr = mlx_new_image(mlx.mlx_ptr, map.el.res_x, map.el.res_y);
+	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp,
+		&img.size_l, &img.endian);
 	
 	return 1;
  
@@ -47,6 +50,6 @@ int	main(int argc, char **argv)
 	//mlx.y = 0;
 	//mlx_hook(mlx.win,2,1, nie, (void *) 0);
 	//mlx_loop_hook(mlx.mlx_ptr,xd, (void *) 0);
-	//mlx_loop(mlx.mlx_ptr);
+	mlx_loop(mlx.mlx_ptr);
 	return (0);
 }
