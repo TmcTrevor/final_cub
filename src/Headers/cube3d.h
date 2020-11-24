@@ -131,7 +131,7 @@ void	init_struct();
 void	read_map(t_map *map);
 void	ft_hello(t_mlx f,t_map *map,t_img l);
 void	read_2d_map(t_map *map);
-void	ft_cube(t_mlx f,int x, int y,t_map *map);
+void	ft_cube(int *x, int *y);
 t_map	*new_game(t_map *map);
 t_vector    *new_vec(t_vector *vec,int x,int y);
 t_player  *new_player(t_player *player,t_vector *pos);

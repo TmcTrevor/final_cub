@@ -6,7 +6,7 @@
 #include "sprite.h"
 #include "cube3d.h"
 #include "elements.h"
-
+#include "texture.h"
 
 typedef struct s_parser{
         //t_array_list lines;
@@ -46,6 +46,7 @@ typedef struct s_map
     t_parser    *parser;
     t_spr       spr;
     t_elements  el;
+    t_tex       tex;
 
    
     //t_array_list walls;
@@ -79,6 +80,8 @@ int             check_borders_lines();
 int             check_borders_columns();
 int		create_good_size_map();
 int             get_elements();
+int             exit_all();
+int             draw_map();
 //oid  parser_do_final(t_parser *this);
 //void   free_parser(void *this);
 //void sprite_tex_parser(char *line);
