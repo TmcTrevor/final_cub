@@ -20,6 +20,7 @@ typedef struct s_parser{
         char            *map_string;
         char            **grid;
         char            *map_string_clean;
+        int             len;
         
        // t_map          *g_p;
         void (*get_lines)(struct s_parser *this);
@@ -82,6 +83,7 @@ int		create_good_size_map();
 int             get_elements();
 int             exit_all();
 int             draw_map();
+int             ft_key();
 //oid  parser_do_final(t_parser *this);
 //void   free_parser(void *this);
 //void sprite_tex_parser(char *line);

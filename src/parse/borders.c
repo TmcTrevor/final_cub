@@ -4,8 +4,8 @@ int		return_error_exit()
 {
 	write(1, "Error\n", 6);
 	write(1, "Map not surrounded by 1\n", 24);
-	//exit_all(m);
-	return (-1);
+	return (exit_all());
+	
 }
 
 int     check_borders_columns()

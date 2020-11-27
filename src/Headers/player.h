@@ -7,12 +7,14 @@
 typedef struct s_player{
    float				posx;
 	 float				posy;
+	 int				posx_p;
+	 int 				posy_p;
 	  float				dirx;
 	  float				diry;
-    double       rotaion_angle;
-    double       fov;
-    double      rotation_speed;
-    double      mov_speed;
+    float       rotation_angle;
+    float       fov;
+    float      rotation_speed;
+    float      mov_speed;
     int         w_dir;
     int         t_dir;
     int         offset;

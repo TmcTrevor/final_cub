@@ -4,15 +4,15 @@ int		return_error()
 {
 	write(1, "Error\n", 6);
 	write(1, "Multiple initial positions\n", 27);
-	return (0);
+	return (exit_all());
 }
 
 int	write_error_one()
 {
 	write(1, "Error\n", 6);
 	write(1, "Error in parsing\n", 17);
-	//return (exit_all(m));
-	return(0);
+	return (exit_all());
+	
 }
 
 int		parse_map(int fd)

@@ -37,6 +37,7 @@ int		create_good_size_map()
 			len = ft_strlen(map.parser->grid[i]);
 		i++;
 	}
+	map.parser->len = len;
 	i = 0;
 	while (map.parser->grid[i] != NULL)
 	{

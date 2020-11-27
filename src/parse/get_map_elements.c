@@ -3,7 +3,7 @@
 int 	error()
 {
 	ft_printf("wrong argument in resolution line");
-	return -1;
+	return exit_all();
 }
 int     get_resolution(char *c)
 {
