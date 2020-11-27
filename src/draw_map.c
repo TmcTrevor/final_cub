@@ -12,10 +12,10 @@ void	ft_cube(int x, int y)
 	a = y + (map.el.res_y / map.parser->line_nbr);
 	
 	j = y;
-	while (x < i)
+	while (x <= i)
 	{
 		y = j;
-		while (y < a)
+		while (y <= a)
 		{
 			img.data[(y * map.el.res_x + x)] =0x00ff00;
 			y++;
@@ -39,9 +39,9 @@ void	ft_cube(int x, int y)
 		x++;
 	}
 }*/
-void    ft_line( int x, int y, int size ,float angle, int color)
+float    ft_line( int x, int y, int size ,float angle, int color)
 {
-    int r = 0;
+    float r = 0;
     int or_x = x;
     int or_y = y;
 	int i;
@@ -51,14 +51,13 @@ void    ft_line( int x, int y, int size ,float angle, int color)
 
 	j = 0;
 	//ft_printf("len = %d --------- line =%d\n",map.parser->len, map.parser->line_nbr);
-    while (r < size )
+    while (r < size)
     {
         x = or_x + (r * cos(angle));
         y = or_y + (r * sin(angle));
-		i = (x * map.parser->len ) / ( map.el.res_x);
-		j = (y * map.parser->line_nbr) / map.el.res_y;
+	
 		//ft_printf("i = %d ---------- j =%d\n",i, j);
-		if (img.data[(int)(y *map.el.res_x + x)] == GREEN)
+		if (img.data[(int)(y *map.el.res_x + x)] == GREEN || x > map.el.res_x || y > map.el.res_y)
 			break;
 	 	img.data[(int)(y * map.el.res_x + x)] =  color;
 		
@@ -66,6 +65,7 @@ void    ft_line( int x, int y, int size ,float angle, int color)
 	
         r++;
     }
+	return r;
 	//printf("-----------------------------------------------------------%d\n",r);
 }
 void	draw_fov()
@@ -77,12 +77,19 @@ void	draw_fov()
 	step = M_PI / 180;
 	angle = 0;
 	angle = map.player.rotation_angle;
-	while(x < map.el.res_x)
+	while(x < map.el.res_x - 2)
 	{
-		ft_line(map.player.posx_p,map.player.posy_p,2000,angle,BLUE);
+		
+		map.ray[x].len = ft_line(map.player.posx_p,map.player.posy_p,2000,angle,BLUE);
+		map.ray[x].posx = map.player.posx_p;
+		map.ray[x].posy = map.player.posy_p;
+		map.ray[x].angle = angle;
+		//cast_ray();
+		
 		angle += (M_PI / 3) / map.el.res_x;
 		x++;
 	}
+	
 }
 void	draw_dir()
 {

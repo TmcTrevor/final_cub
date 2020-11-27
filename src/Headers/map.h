@@ -7,6 +7,7 @@
 #include "cube3d.h"
 #include "elements.h"
 #include "texture.h"
+#include "ray.h"
 
 typedef struct s_parser{
         //t_array_list lines;
@@ -48,6 +49,7 @@ typedef struct s_map
     t_spr       spr;
     t_elements  el;
     t_tex       tex;
+    t_ray       *ray;
 
    
     //t_array_list walls;

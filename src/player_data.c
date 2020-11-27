@@ -42,6 +42,7 @@ int		player_data()
 {
 	data_e_w();
 	data_n_s();
+	init_ray();
 	map.player.posx = map.parser->pos_x_init;
 	map.player.posy = map.parser->pos_y_init;
 	map.player.posx_p = map.player.posx * (map.el.res_x / map.parser->len);

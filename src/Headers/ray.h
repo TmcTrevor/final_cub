@@ -4,9 +4,9 @@
 #include "vector.h"
 
 typedef struct s_ray{
-        t_vector *pos;
-        t_vector *dir;
-        double   len;
+        float    posx;
+        float    posy;  
+        float   len;
         int     kind;
         double   angle;
         int index;
@@ -34,16 +34,8 @@ typedef struct s_ray_sp{
         void (*free)(void *item);
 } t_ray_sp;
 
-/* ray  function*/
 t_ray *new_ray(t_vector *pos, double angle, int i);
-void    cast_ray(void *ray);
-void    render_ray(t_ray *this);
-void update_ray(t_ray *this, double angle, int i);
-void free_ray(void *item);
-void    draw_ray(t_ray *this,int color);
+void    init_ray();
 
-t_ray_sp *new_sp_ray(t_vector *pos, t_vector *dir,  double angle, int i,struct s_sptites *sp);
-void free_ray_sp(void *item);
-void update_sp_ray(t_ray_sp *this, t_vector *dir, struct s_sptites *sp);
 
 #endif

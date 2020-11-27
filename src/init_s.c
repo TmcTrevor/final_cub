@@ -15,6 +15,7 @@ void    init_image()
 	img.size_l = 0;
 	img.endian = 0;
 }
+
 void    init_parser()
 {
     map.parser->data = NULL;
@@ -59,5 +60,10 @@ void    init_struct()
     init_image();
     init_parser();
     init_sprite();
+	
+	map.player.w_dir = 0;
+	map.player.w_dir = 0;
+	map.player.t_dir = 0;
+	map.player.t_dir = 0;
 
 }

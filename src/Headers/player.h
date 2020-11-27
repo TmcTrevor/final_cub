@@ -7,8 +7,8 @@
 typedef struct s_player{
    float				posx;
 	 float				posy;
-	 int				posx_p;
-	 int 				posy_p;
+	 float			posx_p;
+	 float 				posy_p;
 	  float				dirx;
 	  float				diry;
     float       rotation_angle;
