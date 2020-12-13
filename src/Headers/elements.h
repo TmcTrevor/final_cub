@@ -27,6 +27,8 @@ typedef struct		s_elements
 	char	*w_path;
 	char	*e_path;
 	char	*spr_path;
+	int		nb_rays;
+	int 	wsw;
 }					t_elements;
 int		get_floor_color();
 int		get_ceilling_color();

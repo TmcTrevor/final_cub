@@ -56,7 +56,7 @@ int	main(int argc, char **argv)
 	//img.op = 220;
     if (argc != 2)
 		exit(1);
-	 new_map(&map,argv[1]);
+	new_map(&map,argv[1]);
 	 
 	if(start_game() < 0)
 		exit_all();

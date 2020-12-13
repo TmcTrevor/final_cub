@@ -39,6 +39,10 @@ void	ft_cube(int x, int y)
 		x++;
 	}
 }*/
+double distance(int x,int y, int x1,int y1)
+{
+	return (sqrt(pow(x1 - x,2) +pow(y1 -y,2)));
+}
 float    ft_line( int x, int y, int size ,float angle, int color)
 {
     float r = 0;
@@ -62,9 +66,12 @@ float    ft_line( int x, int y, int size ,float angle, int color)
 	 	img.data[(int)(y * map.el.res_x + x)] =  color;
 		
 		
-	
+		
         r++;
     }
+	double a;
+	a = distance(or_x,or_y,x,y);
+	printf("a = %f\nr = %f",a,r);
 	return r;
 	//printf("-----------------------------------------------------------%d\n",r);
 }
@@ -77,7 +84,7 @@ void	draw_fov()
 	step = M_PI / 180;
 	angle = 0;
 	angle = map.player.rotation_angle;
-	while(x < map.el.res_x - 2)
+	while(x < map.el.nb_rays)
 	{
 		
 		map.ray[x].len = ft_line(map.player.posx_p,map.player.posy_p,2000,angle,BLUE);
@@ -86,7 +93,7 @@ void	draw_fov()
 		map.ray[x].angle = angle;
 		//cast_ray();
 		
-		angle += (M_PI / 3) / map.el.res_x;
+		angle += (M_PI / 3) / map.el.nb_rays;
 		x++;
 	}
 	
@@ -106,7 +113,7 @@ int draw_player()
 	float step = M_PI / 180;
 	while (angle <= (2 * M_PI))
 	{
-		ft_line(map.player.posx_p,map.player.posy_p,radius,angle,BLUE);
+		ft_line(map.player.posx_p,map.player.posy_p,radius,angle,RED);
 		 angle += step;
 	}
 	draw_fov();

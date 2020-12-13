@@ -53,8 +53,10 @@ int		player_data()
 	map.tex.texheight = 64;
 	map.spr.sprwidth = 0;
 	map.spr.sprheight = 0;
-	map.player.mov_speed = 10;
+	map.player.mov_speed = 30;
 	map.player.rotation_speed = 2 * (M_PI / 180);
+	map.el.wsw = 1;
+	map.el.nb_rays = map.el.res_x / map.el.wsw;
 	
 	if (!(map.spr.zbuffer = malloc(sizeof(float *) * map.el.res_x + 1)))
 		return (exit_all());
