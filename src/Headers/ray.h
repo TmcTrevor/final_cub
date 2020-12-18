@@ -9,13 +9,13 @@ typedef struct s_ray{
         float   len;
         int     kind;
         double   angle;
-        int index;
-        int coli;
-       void (*update)(struct s_ray *this, double angle, int i);
-        void    (*cast)(void *ray);
-        void    (*render)(struct s_ray *this);
-        double (*length)(struct s_ray *this);
-        void (*free)(void *item);
+        float   xstep;
+        float   ystep;
+        float   xintercept;
+        float   yintercept;
+        float   wallhitx;
+        float   wallhity;
+     
 }       t_ray;
 
 typedef struct s_ray_sp{

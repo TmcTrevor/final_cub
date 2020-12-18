@@ -75,6 +75,13 @@ float    ft_line( int x, int y, int size ,float angle, int color)
 	return r;
 	//printf("-----------------------------------------------------------%d\n",r);
 }
+float	normalize_angle(float angle)
+{
+	angle = angle % (2 * M_PI);
+	if (angle < 0)
+		angle += (2 * M_PI);
+	return angle;
+}
 void	draw_fov()
 {
 	double angle;
@@ -90,7 +97,7 @@ void	draw_fov()
 		map.ray[x].len = ft_line(map.player.posx_p,map.player.posy_p,2000,angle,BLUE);
 		map.ray[x].posx = map.player.posx_p;
 		map.ray[x].posy = map.player.posy_p;
-		map.ray[x].angle = angle;
+		map.ray[x].angle = normalize_angle(angle);
 		//cast_ray();
 		
 		angle += (M_PI / 3) / map.el.nb_rays;
