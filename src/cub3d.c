@@ -22,12 +22,12 @@ int	start_game()
 	if (!(mlx.mlx_ptr = mlx_init()))
 		return -1;
 	player_data();
-	printf("2 ----- %f\n",map.player.rotation_speed);
+//	printf("2 ----- %f\n",map.player.rotation_speed);
 	mlx.win = mlx_new_window(mlx.mlx_ptr, map.el.res_x, map.el.res_y, "TreVor");
 	img.img_ptr = mlx_new_image(mlx.mlx_ptr, map.el.res_x, map.el.res_y);
 	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp,
 		&img.size_l, &img.endian);
-	ft_printf("line %d\n",map.parser->line_nbr);
+	//ft_printf("line %d\n",map.parser->line_nbr);
 	draw_map();
 	//ray_casting();
 	
@@ -36,7 +36,7 @@ int	start_game()
 }
 int		red_button()
 {
-	mlx_destroy_window(mlx.mlx_ptr,mlx.win);
+	//mlx_destroy_window(mlx.mlx_ptr,mlx.win);
 
 	exit_all();
 	return 0;

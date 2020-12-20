@@ -72,6 +72,11 @@ void	free_win()
 		mlx_destroy_window(mlx.mlx_ptr, mlx.win);
 }
 
+void	free_ray()
+{
+	free(map.ray);
+	map.ray = 0;
+}
 int		exit_all()
 {
 	free_win();
@@ -79,6 +84,7 @@ int		exit_all()
 	free_elem();
 	free_tex();
 	free_spr();
+	free_ray();
 	exit(0);
 	return (-1);
 }

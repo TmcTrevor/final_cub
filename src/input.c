@@ -44,38 +44,42 @@ int fking_move()
 {
     float move;
     map.player.rotation_angle += map.player.t_dir * map.player.rotation_speed;
-    move = map.player.w_dir * map.player.mov_speed;
+    move = map.player.w_dir * map.player.mov_speed ;
     int x;
     int y;
     int a;
     int b;
     //printf("angle = %f\n",map.player.rotation_angle);
-    a = (map.player.posx_p * map.parser->len )/ map.el.res_x; 
-    b =  ( map.player.posy_p * map.parser->line_nbr )/ map.el.res_y;
-    x = map.player.posx_p + (cos(map.player.rotation_angle+ M_PI / 6) * move);
-    y = map.player.posy_p + (sin(map.player.rotation_angle+ M_PI / 6) * move);
+    a = floor(map.player.posx_p / map.wall_width); 
+    b =  floor(map.player.posy_p / map.wall_height);
+    x = (map.player.posx_p + (cos(map.player.rotation_angle+ M_PI / 6) * move));
+    y = (map.player.posy_p + (sin(map.player.rotation_angle+ M_PI / 6) * move));
     //x += 5 * map.player.w_dir;
     //y += 5 * map.player.w_dir;
-    printf("x1_P = %f ------ --- x2_P = %f\n",map.player.posx_p,map.player.posy_p);
-    ft_printf("x2_P = %d ------ --- x2_P = %d\n",x,y);
+    //printf("x1_P = %f ------ --- x2_P = %f\n",map.player.posx_p,map.player.posy_p);
+    //ft_printf("x2_P = %d ------ --- x2_P = %d\n",x,y);
 
-    x = (x * map.parser->len )/ map.el.res_x;
-    y = (y * map.parser->line_nbr )/ map.el.res_y;
+    x = floor(x / map.wall_width );
+    y = floor(y /map.wall_height);
      
-    ft_printf("x1 = %d ------ --- x2 = %d\n",a,b);
+   // ft_printf("x = %d ------ --- b = %d ------ %c \n",x,b);
    /* if (a == x + map.player.w_dir)
         x +=  map.player.w_dir;
     if (b == y + map.player.w_dir)
         y +=  map.player.w_dir;*/
-    ft_printf("x2 = %d ------ --- y2 = %d\n",x,y);
-    
+   // ft_printf("a = %d ------ --- y = %d\n",x,y);
+    printf("x_P = %f ------ --- y_P = %f\n",map.player.posx_p,map.player.posy_p);
+    int o =  1732 / map.wall_width;
+    int z = 328 / map.wall_height;
+    printf("grid = %c \n",map.parser->grid[z][o]);
+   // 
     if (is_wall(x,b))
     //{
-        map.player.posx_p += cos(map.player.rotation_angle + M_PI / 6) * move;
+        map.player.posx_p += ((cos(map.player.rotation_angle + M_PI / 6) * move));
       ///  printf("3\n");
     //}
     if (is_wall(a,y)) 
-        map.player.posy_p += sin(map.player.rotation_angle + M_PI / 6) * move;
+        map.player.posy_p += ((sin(map.player.rotation_angle + M_PI / 6) * move));
       //  printf("5\n");
      //}
     

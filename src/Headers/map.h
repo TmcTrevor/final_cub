@@ -41,6 +41,11 @@ typedef struct s_map
     char        *line;
     double      w;
     double      h;
+    int         wall_height;
+    int         wall_width;
+
+
+    float       distanceProjPlane;
     
     t_player    player;
     t_array_list errors;
@@ -91,3 +96,5 @@ int             ft_key();
 //void sprite_tex_parser(char *line);
 
 #endif
+
+

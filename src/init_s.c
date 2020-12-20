@@ -60,10 +60,8 @@ void    init_struct()
     init_image();
     init_parser();
     init_sprite();
-	
 	map.player.w_dir = 0;
 	map.player.w_dir = 0;
 	map.player.t_dir = 0;
 	map.player.t_dir = 0;
-
 }

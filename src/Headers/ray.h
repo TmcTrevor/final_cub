@@ -15,6 +15,14 @@ typedef struct s_ray{
         float   yintercept;
         float   wallhitx;
         float   wallhity;
+        float   distance;
+        float   wallstripheight;
+        int     ray_down;
+        int     ray_up;
+        int     ray_right;
+        int     ray_left;
+
+        
      
 }       t_ray;
 
@@ -36,6 +44,10 @@ typedef struct s_ray_sp{
 
 t_ray *new_ray(t_vector *pos, double angle, int i);
 void    init_ray();
+void    project_wall();
+float    ft_line( int x, int y, int size ,float angle, int color);
+void  cast_horizontal_inter_ray(float angle);
+void    check_angle(float angle, int x);
 
 
 #endif

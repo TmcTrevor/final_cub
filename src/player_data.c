@@ -43,20 +43,24 @@ int		player_data()
 	data_e_w();
 	data_n_s();
 	init_ray();
+	map.wall_width =  (map.el.res_x / map.parser->len) ;
+	map.wall_height = (map.el.res_y / map.parser->line_nbr);
 	map.player.posx = map.parser->pos_x_init;
 	map.player.posy = map.parser->pos_y_init;
-	map.player.posx_p = map.player.posx * (map.el.res_x / map.parser->len);
-	map.player.posy_p = map.player.posy * (map.el.res_y / map.parser->line_nbr);
-	map.player.posx_p += (map.el.res_x / map.parser->len)  / 2;
-	map.player.posy_p += (map.el.res_y / map.parser->line_nbr) /2;
+	map.player.posx_p = map.player.posx * map.wall_width;
+	map.player.posy_p = map.player.posy * map.wall_height;
+	map.player.posx_p += map.wall_width  / 2;
+	map.player.posy_p += map.wall_height /2;
 	map.tex.texwidth = 64;
 	map.tex.texheight = 64;
 	map.spr.sprwidth = 0;
 	map.spr.sprheight = 0;
 	map.player.mov_speed = 30;
-	map.player.rotation_speed = 2 * (M_PI / 180);
+	map.player.rotation_speed = 5 * (M_PI / 180);
 	map.el.wsw = 1;
 	map.el.nb_rays = map.el.res_x / map.el.wsw;
+	map.distanceProjPlane = (map.el.res_x / 2) / tan(M_PI /6);
+	
 	
 	if (!(map.spr.zbuffer = malloc(sizeof(float *) * map.el.res_x + 1)))
 		return (exit_all());
