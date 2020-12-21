@@ -91,12 +91,13 @@ void	draw_fov()
 	step = M_PI / 180;
 	angle = 0;
 	angle = map.player.rotation_angle;
-	while(x < map.el.nb_rays)
+	while(x <= 1) //map.el.nb_rays)
 	{
 		angle = normalize_angle(angle);
 		check_angle(angle,x);
-		cast_horizontal_inter_ray(angle);
-		//ft_line(map.player.posx_p,map.player.posy_p,50,angle,BLUE)	;
+		cast_horizontal_inter_ray(angle, x);
+		reset_ray(x);
+		//ft_line(map.player.posx_p,map.player.posy_p,500,angle,BLUE)	;
 	//	map.ray[x].len = ft_line(map.player.posx_p,map.player.posy_p,2000,angle,BLUE);
 	//	map.ray[x].posx = map.player.posx_p;
 	///	map.ray[x].posy = map.player.posy_p;
@@ -107,6 +108,7 @@ void	draw_fov()
 		angle += (M_PI / 3) / map.el.nb_rays;
 		x++;
 	}
+	//reset_ray();
 	
 }
 void	draw_dir()

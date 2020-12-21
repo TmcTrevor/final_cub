@@ -46,8 +46,12 @@ t_ray *new_ray(t_vector *pos, double angle, int i);
 void    init_ray();
 void    project_wall();
 float    ft_line( int x, int y, int size ,float angle, int color);
-void  cast_horizontal_inter_ray(float angle);
+void  cast_horizontal_inter_ray(float angle, int x);
 void    check_angle(float angle, int x);
+void    reset_ray(int x);
+int     is_wall(int a, int b);
+double distance(int x,int y, int x1,int y1);
+float    ft_line( int x, int y, int size ,float angle, int color);
 
 
 #endif
