@@ -56,7 +56,7 @@ int		player_data()
 	map.spr.sprwidth = 0;
 	map.spr.sprheight = 0;
 	map.player.mov_speed = 30;
-	map.player.rotation_speed = 5 * (M_PI / 180);
+	map.player.rotation_speed = 2 * (M_PI / 180);
 	map.el.wsw = 1;
 	map.el.nb_rays = map.el.res_x / map.el.wsw;
 	map.distanceProjPlane = (map.el.res_x / 2) / tan(M_PI /6);

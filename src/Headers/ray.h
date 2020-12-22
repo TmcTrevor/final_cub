@@ -13,6 +13,10 @@ typedef struct s_ray{
         float   ystep;
         float   xintercept;
         float   yintercept;
+        float   h_wallhitx;
+        float   h_wallhity;
+        float   v_wallhitx;
+        float   v_wallhity;
         float   wallhitx;
         float   wallhity;
         float   distance;
@@ -21,6 +25,9 @@ typedef struct s_ray{
         int     ray_up;
         int     ray_right;
         int     ray_left;
+        int     verwallhit;
+        int     horzwallhit;
+        int     wasvertical;
 
         
      
@@ -51,7 +58,8 @@ void    check_angle(float angle, int x);
 void    reset_ray(int x);
 int     is_wall(int a, int b);
 double distance(int x,int y, int x1,int y1);
-float    ft_line( int x, int y, int size ,float angle, int color);
-
+//float    ft_line( int x, int y, int size ,float angle, int color);
+void  cast_vertical_inter_ray(float angle, int x);
+void    check_distance(int x, float angle);
 
 #endif

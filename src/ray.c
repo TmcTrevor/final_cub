@@ -18,7 +18,9 @@ void   init_ray()
    map.ray[x].ray_down = 0;
      map.ray[x].ray_up = 0;
      map.ray[x].ray_right = 0;
-     map.ray[x].ray_left = 0;        
+     map.ray[x].ray_left = 0; 
+     map.ray[x].horzwallhit = 0;
+     map.ray[x].verwallhit = 0;       
         x++;
     }
     //map.ray[0].angle = 5;
@@ -42,7 +44,7 @@ void rec(int  x ,int  y, int  sizex ,int sizey)
   }
 
 }
-void	line(int x0, int y0, int x1, int y1, int color)
+/*void	line(int x0, int y0, int x1, int y1, int color)
 {
 	int		dx;
 	int		dy;
@@ -64,6 +66,39 @@ void	line(int x0, int y0, int x1, int y1, int color)
 		x0 += xinc;
 		y0 += yinc;
 	}
+}*/
+float    fline(int x, int y, int x1,int y1,float angle, int color)
+{
+    float r = 0;
+    int or_x = x;
+    int or_y = y;
+	int i;
+	int j;
+	//printf("1\n");
+	i = 0;
+
+	j = 0;
+	//ft_printf("len = %d --------- line =%d\n",map.parser->len, map.parser->line_nbr);
+    while (x != x1 && y != y1)
+    {
+        x = or_x + (r * cos(angle));
+        y = or_y + (r * sin(angle));
+	
+		//ft_printf("i = %d ---------- j =%d\n",i, j);
+		//if (img.data[(int)(y *map.el.res_x + x)] == GREEN|| x > map.el.res_x || y > map.el.res_y )
+		//	break;
+	 	img.data[(int)(y * map.el.res_x + x)] =  color;
+    img.data[(int)(y * map.el.res_x + x)] =  color;
+		
+		
+		
+        r++;
+    }
+	double a;
+	a = distance(or_x,or_y,x,y);
+	//r /= 0.2;
+	return r;
+	//printf("-----------------------------------------------------------%d\n",r);
 }
 void  reset_ray(int x)
 {
@@ -83,15 +118,18 @@ void  check_angle(float angle,int x)
   else
       map.ray[x].ray_left = 1;
     
- 
+ printf("down = %d\n",map.ray[x].ray_down);
+ printf("up = %d\n",map.ray[x].ray_up);
+ printf("right = %d\n",map.ray[x].ray_right);
+ printf("left = %d\n",map.ray[x].ray_left);
 }
 
 int     is_wall2(int a, int b)
 {
     a = floor(a / map.wall_width);
     b = floor(b / map.wall_height);
-    if (a < 0 || b < 0 || a > map.parser->len || b > map.parser->line_nbr )
-        return 1;
+    if (a < 0 || b < 0 || a > map.parser->len - 2|| b > map.parser->line_nbr - 2 )
+        return 0;
     if (map.parser->grid[b][a] == '1')
         return 1;
     return 0;
@@ -106,11 +144,11 @@ void  cast_horizontal_inter_ray(float angle, int x)
     int nexty;
     //line(map.player.posx_p,map.player.posy_p,0,0,RED);
     yintercept =  floor(map.player.posy_p / map.wall_height) * map.wall_height;
-    yintercept += map.ray[x].ray_down;
+    yintercept += (map.ray[x].ray_down ) ? map.wall_height : 0;
  
     xintercept =  map.player.posx_p + (yintercept - map.player.posy_p) / tan(angle);
     //printf("x = %d\ny = %d\n",xintercept,yintercept);
-   // img.data[yintercept * map.el.res_x + xintercept] = BLUE;
+   //img.data[yintercept * map.el.res_x + xintercept] = RED;
     ystep =  map.wall_height;
     ystep *= map.ray[x].ray_up ? -1 : 1;
     
@@ -126,10 +164,15 @@ void  cast_horizontal_inter_ray(float angle, int x)
       
       if (is_wall2(nextx,nexty))
       {
-     // line(map.player.posx_p,map.player.posy_p,nextx,nexty,RED);
+        //wall_hit = true;
+        map.ray[x].horzwallhit = 1;
+        map.ray[x].h_wallhitx = nextx;
+        map.ray[x].h_wallhity = nexty;
+img.data[yintercept * map.el.res_x + xintercept] = RED;
+     // fline(map.player.posx_p,map.player.posy_p,nextx,nexty,angle,RED);
       // int e =(int)distance(map.player.posx_p,map.player.posy,nextx, nexty);
   
-          img.data[nexty * map.el.res_x + nextx] = BLUE;
+          //img.data[nexty * map.el.res_x + nextx] = BLUE;
      
       // printf("x = %d\ny = %d\n",nextx,nexty);
        //ft_line(map.player.posx_p ,map.player.posy_p ,e,angle,RED);
@@ -143,6 +186,76 @@ void  cast_horizontal_inter_ray(float angle, int x)
     }
 
     
+}
+void  cast_vertical_inter_ray(float angle, int x)
+{
+    int xintercept;
+    int yintercept;
+    int xstep;
+    int ystep;
+    int nextx;
+    int nexty;
+    //line(map.player.posx_p,map.player.posy_p,0,0,RED);
+    xintercept =  floor(map.player.posx_p / map.wall_width) * map.wall_width;
+    xintercept += (map.ray[x].ray_right) ? map.wall_width : 0;
+ 
+    yintercept =  map.player.posy_p + (xintercept - map.player.posx_p) * tan(angle);
+    //printf("x = %d\ny = %d\n",xintercept,yintercept);
+   // img.data[yintercept * map.el.res_x + xintercept] = BLUE;
+    xstep =  floor(map.wall_width);
+    xstep *= map.ray[x].ray_left ? -1 : 1;
+    
+    ystep = ystep / tan(angle);
+    ystep *= (map.ray[x].ray_up && ystep > 0) ? -1 : 1;
+    ystep *= (map.ray[x].ray_down && ystep < 0)? -1 : 1;
+    nextx = xintercept;
+    nexty = yintercept;
+   // img.data[nexty * map.el.res_x + nextx] = BLUE;
+    if (map.ray[x].ray_left)
+      nextx--;
+    while(nextx >= 0 && nextx < map.el.res_x && nexty >=0 && nexty < map.el.res_y)
+    {
+      
+      if (is_wall2(nextx,nexty))
+      {
+         map.ray[x].verwallhit = 1;
+        map.ray[x].v_wallhitx = nextx;
+        map.ray[x].v_wallhity = nexty;
+     // fline(map.player.posx_p,map.player.posy_p,nextx,nexty,angle,RED);
+      // int e =(int)distance(map.player.posx_p,map.player.posy,nextx, nexty);
+  
+         img.data[nexty * map.el.res_x + nextx] = BLUE;
+     
+      // printf("x = %d\ny = %d\n",nextx,nexty);
+       //ft_line(map.player.posx_p ,map.player.posy_p ,e,angle,RED);
+        break;
+      }
+      else
+        {
+          nextx += xstep;
+          nexty += ystep;
+        }
+    }
+
+    
+}
+void  check_distance(int x, float angle)
+{
+    int p1;
+    int p2;
+    if (map.ray[x].horzwallhit)
+      p1 =distance(map.player.posx_p,map.player.posy_p,map.ray[x].h_wallhitx,map.ray[x].h_wallhity);
+    else
+      p1 = 3000;
+    if (map.ray[x].verwallhit)
+    p2 = distance(map.player.posx_p,map.player.posy_p,map.ray[x].v_wallhitx,map.ray[x].v_wallhity);
+    else
+    p2 = 3000;
+    map.ray[x].distance = (p1 < p2) ? p1 : p2;
+    map.ray[x].wallhitx = (p1 < p2) ? map.ray[x].h_wallhitx : map.ray[x].v_wallhitx;
+    map.ray[x].wallhity = (p1 < p2) ? map.ray[x].h_wallhity : map.ray[x].v_wallhity;
+    map.ray[x].wasvertical = (p1 < p2) ? 0 : 1;
+    fline(map.player.posx_p,map.player.posy_p,map.ray[x].wallhitx,map.ray[x].wallhity,angle,RED);
 }
 void    project_wall()
 {
