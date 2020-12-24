@@ -67,6 +67,36 @@ void rec(int  x ,int  y, int  sizex ,int sizey)
 		y0 += yinc;
 	}
 }*/
+void   draw_line(int x0, int y0, int x1, int y1, int color)
+{
+//Bresenham's Line Drawing Algorithm
+  int dx =  abs (x1 - x0);
+  int dy = -abs (y1 - y0);
+  int sx = x0 < x1 ? 1 : -1;
+  int sy = y0 < y1 ? 1 : -1;
+  int p = dx + dy; //p step
+  int p2;
+  while(1)
+  {
+    //setPixel (x0,y0);
+    //mlx_pixel_put(mlx, window, x0, y0, BLUE);
+    img.data[y0 * map.el.res_x +  x0] = color;
+    if (x0 == x1 && y0 == y1)
+        break;
+    p2 = 2 * p;
+    if (p2 >= dy)
+    {
+        p += dy;
+        x0 += sx;
+    } // e_xy+e_x > 0
+    if (p2 <= dx)
+    {
+        p += dx;
+        y0 += sy;
+    }  //e_xy+e_y < 0
+  }
+  //mlx_put_image_to_window(mlx, window, img, 0, 0);
+}
 float    fline(int x, int y, int x1,int y1,float angle, int color)
 {
     float r = 0;
@@ -128,7 +158,7 @@ int     is_wall2(int a, int b)
 {
     a = floor(a / map.wall_width);
     b = floor(b / map.wall_height);
-    if (a < 0 || b < 0 || a > map.parser->len - 2|| b > map.parser->line_nbr - 2 )
+    if (a < 0 || b < 0 || a > map.parser->len - 1 || b > map.parser->line_nbr - 1 )
         return 0;
     if (map.parser->grid[b][a] == '1')
         return 1;
@@ -145,7 +175,7 @@ void  cast_horizontal_inter_ray(float angle, int x)
     //line(map.player.posx_p,map.player.posy_p,0,0,RED);
     yintercept =  floor(map.player.posy_p / map.wall_height) * map.wall_height;
     yintercept += (map.ray[x].ray_down ) ? map.wall_height : 0;
- 
+    
     xintercept =  map.player.posx_p + (yintercept - map.player.posy_p) / tan(angle);
     //printf("x = %d\ny = %d\n",xintercept,yintercept);
    //img.data[yintercept * map.el.res_x + xintercept] = RED;
@@ -161,14 +191,16 @@ void  cast_horizontal_inter_ray(float angle, int x)
       nexty--;
     while(nextx >= 0 && nextx < map.el.res_x && nexty >=0 && nexty < map.el.res_y)
     {
-      
+       //  if (map.ray[x].ray_up)
+      //nexty--; 
       if (is_wall2(nextx,nexty))
       {
         //wall_hit = true;
         map.ray[x].horzwallhit = 1;
         map.ray[x].h_wallhitx = nextx;
         map.ray[x].h_wallhity = nexty;
-img.data[yintercept * map.el.res_x + xintercept] = RED;
+//img.data[yintercept * map.el.res_x + xintercept] = RED;
+      draw_line(map.player.posx_p,map.player.posy_p,nextx,nexty, RED);
      // fline(map.player.posx_p,map.player.posy_p,nextx,nexty,angle,RED);
       // int e =(int)distance(map.player.posx_p,map.player.posy,nextx, nexty);
   
@@ -202,19 +234,22 @@ void  cast_vertical_inter_ray(float angle, int x)
     yintercept =  map.player.posy_p + (xintercept - map.player.posx_p) * tan(angle);
     //printf("x = %d\ny = %d\n",xintercept,yintercept);
    // img.data[yintercept * map.el.res_x + xintercept] = BLUE;
-    xstep =  floor(map.wall_width);
+    xstep =  map.wall_width;
     xstep *= map.ray[x].ray_left ? -1 : 1;
     
-    ystep = ystep / tan(angle);
+    ystep = xstep * tan(angle);
     ystep *= (map.ray[x].ray_up && ystep > 0) ? -1 : 1;
     ystep *= (map.ray[x].ray_down && ystep < 0)? -1 : 1;
     nextx = xintercept;
-    nexty = yintercept;
+    nexty = yintercept;//
+ 
    // img.data[nexty * map.el.res_x + nextx] = BLUE;
     if (map.ray[x].ray_left)
       nextx--;
     while(nextx >= 0 && nextx < map.el.res_x && nexty >=0 && nexty < map.el.res_y)
     {
+      // if (map.ray[x].ray_left)
+      //nextx--;
       
       if (is_wall2(nextx,nexty))
       {
@@ -223,7 +258,7 @@ void  cast_vertical_inter_ray(float angle, int x)
         map.ray[x].v_wallhity = nexty;
      // fline(map.player.posx_p,map.player.posy_p,nextx,nexty,angle,RED);
       // int e =(int)distance(map.player.posx_p,map.player.posy,nextx, nexty);
-  
+   // draw_line(map.player.posx_p,map.player.posy_p,nextx,nexty, RED);
          img.data[nexty * map.el.res_x + nextx] = BLUE;
      
       // printf("x = %d\ny = %d\n",nextx,nexty);
@@ -255,7 +290,9 @@ void  check_distance(int x, float angle)
     map.ray[x].wallhitx = (p1 < p2) ? map.ray[x].h_wallhitx : map.ray[x].v_wallhitx;
     map.ray[x].wallhity = (p1 < p2) ? map.ray[x].h_wallhity : map.ray[x].v_wallhity;
     map.ray[x].wasvertical = (p1 < p2) ? 0 : 1;
-    fline(map.player.posx_p,map.player.posy_p,map.ray[x].wallhitx,map.ray[x].wallhity,angle,RED);
+   // fline(map.player.posx_p,map.player.posy_p,map.ray[x].wallhitx,map.ray[x].wallhity,angle,RED);
+    //draw_line(map.player.posx_p,map.player.posy_p,map.ray[x].wallhitx,map.ray[x].wallhity, RED);
+  
 }
 void    project_wall()
 {
