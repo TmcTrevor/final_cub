@@ -20,8 +20,8 @@ typedef struct s_player{
     int         offset;
     float       planex;
     float       planey;
-    t_array_list collision;
-    t_array_list wall_rays;
+    //t_array_list collision;
+    //t_array_list wall_rays;
    // t_array_list sprit_rays;
   //  t_array_list light_rays;
 

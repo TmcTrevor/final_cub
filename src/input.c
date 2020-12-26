@@ -16,6 +16,27 @@ int key_press(int key)
     return 0;
 
 }
+void    reset_ray2()
+{
+    int x;
+
+    x = 0;
+    while(x < map.el.nb_rays)
+    {
+         map.ray[x].len = 0;
+		map.ray[x].posx = map.player.posx_p;
+		map.ray[x].posy = map.player.posy_p;
+		map.ray[x].angle = 0;
+		map.ray[x].wallstripheight = 0;
+   map.ray[x].ray_down = 0;
+     map.ray[x].ray_up = 0;
+     map.ray[x].ray_right = 0;
+     map.ray[x].ray_left = 0; 
+     map.ray[x].horzwallhit = 0;
+     map.ray[x].verwallhit = 0;       
+        x++;
+    }
+}
 int after_press(int key)
 {
     if (key == MLXK_W || key == MLXK_UP)
@@ -52,8 +73,8 @@ int fking_move()
     //printf("angle = %f\n",map.player.rotation_angle);
     a = floor(map.player.posx_p / map.wall_width); 
     b =  floor(map.player.posy_p / map.wall_height);
-    x = (map.player.posx_p + (cos(map.player.rotation_angle+ M_PI / 6) * move));
-    y = (map.player.posy_p + (sin(map.player.rotation_angle+ M_PI / 6) * move));
+    x = (map.player.posx_p + (cos(map.player.rotation_angle+ M_PI / 6) * move));// * 0.2);
+    y = (map.player.posy_p + (sin(map.player.rotation_angle+ M_PI / 6) * move));// * 0.2);
     //x += 5 * map.player.w_dir;
     //y += 5 * map.player.w_dir;
     //printf("x1_P = %f ------ --- x2_P = %f\n",map.player.posx_p,map.player.posy_p);
@@ -67,19 +88,16 @@ int fking_move()
         x +=  map.player.w_dir;
     if (b == y + map.player.w_dir)
         y +=  map.player.w_dir;*/
-   // ft_printf("a = %d ------ --- y = %d\n",x,y);
-    printf("x_P = %f ------ --- y_P = %f\n",map.player.posx_p,map.player.posy_p);
-    int o =  1732 / map.wall_width;
-    int z = 328 / map.wall_height;
-    printf("grid = %c \n",map.parser->grid[z][o]);
+   //ft_printf("a = %d ------ --- y = %d\n",x,y);
+
    // 
     if (is_wall(x,b))
     //{
-        map.player.posx_p += ((cos(map.player.rotation_angle + M_PI / 6) * move));
+        map.player.posx_p += ((cos(map.player.rotation_angle + M_PI / 6) * move));// * 0.2;
       ///  printf("3\n");
     //}
     if (is_wall(a,y)) 
-        map.player.posy_p += ((sin(map.player.rotation_angle + M_PI / 6) * move));
+        map.player.posy_p += ((sin(map.player.rotation_angle + M_PI / 6) * move)) ;//* 0.2;
       //  printf("5\n");
      //}
     
@@ -90,10 +108,11 @@ int ft_key(int key)
     ft_printf("key =%d\n",key);
     if (key == MLXK_ESC || key == MLXK_X)
 		exit_all();
-    printf("-----------%f\n",map.player.rotation_angle);
+    //printf("-----------%f\n",map.player.rotation_angle);
     key_press(key);
     
     fking_move();
+   reset_ray2();
     after_press(key);
     
     mlx_destroy_image(mlx.mlx_ptr,img.img_ptr);

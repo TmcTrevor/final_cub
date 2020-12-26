@@ -42,9 +42,9 @@ int		player_data()
 {
 	data_e_w();
 	data_n_s();
-	init_ray();
-	map.wall_width =  (map.el.res_x / map.parser->len) ;
-	map.wall_height = (map.el.res_y / map.parser->line_nbr);
+	
+	map.wall_width =  (map.el.res_x / map.parser->len) ;// * 0.2;
+	map.wall_height = (map.el.res_y / map.parser->line_nbr);// * 0.2;
 	map.player.posx = map.parser->pos_x_init;
 	map.player.posy = map.parser->pos_y_init;
 	map.player.posx_p = map.player.posx * map.wall_width;
@@ -60,7 +60,7 @@ int		player_data()
 	map.el.wsw = 1;
 	map.el.nb_rays = map.el.res_x / map.el.wsw;
 	map.distanceProjPlane = (map.el.res_x / 2) / tan(M_PI /6);
-	
+	init_ray();
 	
 	if (!(map.spr.zbuffer = malloc(sizeof(float *) * map.el.res_x + 1)))
 		return (exit_all());

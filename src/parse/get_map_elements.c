@@ -99,8 +99,6 @@ int get_elements()
 		return (-1);
 	if (!get_east_texture())
 		return (-1);*/
-    printf(" No = %d\n",map.el.f_r);
-	printf(" No = %d\n",map.el.f_g);
-	printf(" No = %d\n",map.el.f_b);
+  
 	return (1);
 }
