@@ -96,14 +96,14 @@ void	draw_fov()
 	while(x <  map.el.nb_rays)
 	{
 		angle = normalize_angle(angle);
-		check_angle(angle,x);
-		cast_horizontal_inter_ray(angle, x);
+		//check_angle(angle,x);
+		//cast_horizontal_inter_ray(angle, x);
 		//reset_ray(x);
 		//check_angle(angle,x);
-		cast_vertical_inter_ray(angle, x);
+		//cast_vertical_inter_ray(angle, x);
 		
 		check_distance(x,angle);
-		reset_ray(x);
+		//reset_ray(x);
 		//ft_line(map.player.posx_p,map.player.posy_p,200,angle,BLUE)	;
 	//	map.ray[x].len = ft_line(map.player.posx_p,map.player.posy_p,2000,angle,BLUE);
 	//	map.ray[x].posx = map.player.posx_p;
@@ -186,8 +186,8 @@ int draw_map()
 	/*	mlx_destroy_image(mlx.mlx_ptr,img.img_ptr);
 		img.img_ptr = mlx_new_image(mlx.mlx_ptr, map.el.res_x, map.el.res_y);
 	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp,
-		&img.size_l, &img.endian);
-	project_wall();*/
+		&img.size_l, &img.endian);*/
+	project_wall();
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win, img.img_ptr, 0, 0);
 	
 

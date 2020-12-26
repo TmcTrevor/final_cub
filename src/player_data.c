@@ -43,8 +43,8 @@ int		player_data()
 	data_e_w();
 	data_n_s();
 	
-	map.wall_width =  (map.el.res_x / map.parser->len) ;// * 0.2;
-	map.wall_height = (map.el.res_y / map.parser->line_nbr);// * 0.2;
+	map.wall_width =  (map.el.res_x / map.parser->len) * 0.2;
+	map.wall_height = (map.el.res_y / map.parser->line_nbr) * 0.2;
 	map.player.posx = map.parser->pos_x_init;
 	map.player.posy = map.parser->pos_y_init;
 	map.player.posx_p = map.player.posx * map.wall_width;

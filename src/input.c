@@ -73,8 +73,8 @@ int fking_move()
     //printf("angle = %f\n",map.player.rotation_angle);
     a = floor(map.player.posx_p / map.wall_width); 
     b =  floor(map.player.posy_p / map.wall_height);
-    x = (map.player.posx_p + (cos(map.player.rotation_angle+ M_PI / 6) * move));// * 0.2);
-    y = (map.player.posy_p + (sin(map.player.rotation_angle+ M_PI / 6) * move));// * 0.2);
+    x = (map.player.posx_p + (cos(map.player.rotation_angle+ M_PI / 6) * move) * 0.2);
+    y = (map.player.posy_p + (sin(map.player.rotation_angle+ M_PI / 6) * move) * 0.2);
     //x += 5 * map.player.w_dir;
     //y += 5 * map.player.w_dir;
     //printf("x1_P = %f ------ --- x2_P = %f\n",map.player.posx_p,map.player.posy_p);
@@ -93,11 +93,11 @@ int fking_move()
    // 
     if (is_wall(x,b))
     //{
-        map.player.posx_p += ((cos(map.player.rotation_angle + M_PI / 6) * move));// * 0.2;
+        map.player.posx_p += ((cos(map.player.rotation_angle + M_PI / 6) * move)) * 0.2;
       ///  printf("3\n");
     //}
     if (is_wall(a,y)) 
-        map.player.posy_p += ((sin(map.player.rotation_angle + M_PI / 6) * move)) ;//* 0.2;
+        map.player.posy_p += ((sin(map.player.rotation_angle + M_PI / 6) * move))* 0.2;
       //  printf("5\n");
      //}
     
@@ -112,7 +112,7 @@ int ft_key(int key)
     key_press(key);
     
     fking_move();
-   reset_ray2();
+   //reset_ray2();
     after_press(key);
     
     mlx_destroy_image(mlx.mlx_ptr,img.img_ptr);

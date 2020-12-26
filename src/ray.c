@@ -97,7 +97,7 @@ void   draw_line(int x0, int y0, int x1, int y1, int color)
   }
   //mlx_put_image_to_window(mlx, window, img, 0, 0);
 }
-float    fline(int x, int y, int x1,int y1,float angle, int color)
+float    fline(int x, int y, int x1,int y1,float angle, int color,int e)
 {
     float r = 0;
     int or_x = x;
@@ -109,13 +109,13 @@ float    fline(int x, int y, int x1,int y1,float angle, int color)
     
    
 	//ft_printf("len = %d --------- line =%d\n",map.parser->len, map.parser->line_nbr);
-    while (r < p1)
+    while (r <= p1)
     {
         x = or_x + (r * cos(angle));
         y = or_y + (r * sin(angle));
 
 		//ft_printf("i = %d ---------- j =%d\n",i, j);
-		if (x > map.el.res_x || y > map.el.res_y )
+		if (x > map.el.res_x || y > map.el.res_y || img.data[y *map.el.res_x + x] == GREEN)
 			break;
 	 	img.data[(int)(y * map.el.res_x + x)] =  color;
    // img.data[(int)(y * map.el.res_x + x)] =  color;
@@ -127,6 +127,7 @@ float    fline(int x, int y, int x1,int y1,float angle, int color)
 	double a;
 	a = distance(or_x,or_y,x,y);
 	//r /= 0.2;
+  map.ray[e].distance =r;
 	return r;
 	//printf("-----------------------------------------------------------%d\n",r);
 }
@@ -152,20 +153,17 @@ void  check_angle(float angle,int x)
 
 int     is_wall2(int a, int b)
 {
-    int i;
-    int j;
-    i = a;
-    j = b;
+
     a = floor(a / map.wall_width);
     b = floor(b / map.wall_height);
     if (a < 0 || b < 0 || a > map.parser->len - 1 || b > map.parser->line_nbr - 1 )
         return 1;
-    if (map.parser->grid[b][a] == '1' || img.data[j *map.el.res_x + i] == GREEN)
+    if (map.parser->grid[b][a] == '1')
         return 1;
    
     return 0;
 }
-void  cast_horizontal_inter_ray(float angle, int x)
+/*void  cast_horizontal_inter_ray(float angle, int x)
 {
     int xintercept;
     int yintercept;
@@ -219,8 +217,8 @@ void  cast_horizontal_inter_ray(float angle, int x)
     }
 
     
-}
-void  cast_vertical_inter_ray(float angle, int x)
+}*/
+/*void  cast_vertical_inter_ray(float angle, int x)
 {
     int xintercept;
     int yintercept;
@@ -242,15 +240,15 @@ void  cast_vertical_inter_ray(float angle, int x)
     ystep *= (map.ray[x].ray_up && ystep > 0) ? -1 : 1;
     ystep *= (map.ray[x].ray_down && ystep < 0)? -1 : 1;
     nextx = xintercept;
-    nexty = yintercept;//
+    nexty = yintercept;
  
    // img.data[nexty * map.el.res_x + nextx] = BLUE;
-    if (map.ray[x].ray_left)
+   if (map.ray[x].ray_left)
       nextx--;
     while(nextx >= 0 && nextx < map.el.res_x && nexty >=0 && nexty < map.el.res_y)
     {
-      // if (map.ray[x].ray_left)
-      //nextx--;
+       //if (map.ray[x].ray_left)
+      //  nextx--;
       
       if (is_wall2(nextx,nexty))
       {
@@ -274,12 +272,45 @@ void  cast_vertical_inter_ray(float angle, int x)
     }
 
     
+}*/
+float    fline2( int e,int x, int y, int size ,float angle, int color)
+{
+    float r = 0;
+    int or_x = x;
+    int or_y = y;
+	int i;
+	int j;
+	//printf("1\n");
+	i = 0;
+
+	j = 0;
+	//ft_printf("len = %d --------- line =%d\n",map.parser->len, map.parser->line_nbr);
+    while (r < size)
+    {
+        x = or_x + (r * cos(angle));
+        y = or_y + (r * sin(angle));
+	
+		//ft_printf("i = %d ---------- j =%d\n",i, j);
+		if (img.data[(int)(y *map.el.res_x + x)] == GREEN|| x > map.el.res_x || y > map.el.res_y )
+			break;
+	 	img.data[(int)(y * map.el.res_x + x)] =  color;
+		
+		
+		
+        r++;
+    }
+	double a;
+	a = distance(or_x,or_y,x,y);
+	//r /= 0.2;
+  map.ray[e].distance = r;
+	return r;
+	//printf("-----------------------------------------------------------%d\n",r);
 }
 void  check_distance(int x, float angle)
 {
     int p1;
     int p2;
-    if (map.ray[x].horzwallhit)
+   /* if (map.ray[x].horzwallhit)
       p1 =distance(map.player.posx_p,map.player.posy_p,map.ray[x].h_wallhitx,map.ray[x].h_wallhity);
     else
       p1 =1500;
@@ -290,11 +321,14 @@ void  check_distance(int x, float angle)
     if (angle == M_PI)
       p1 = 1500;
     //("p1 =%d\np2 = %d\n",p1,p2);
-    map.ray[x].distance = (p1 < p2) ? p1 : p2;
+   // map.ray[x].distance = (p1 < p2) ? p1 : p2;
     map.ray[x].wallhitx = (p1 < p2) ? map.ray[x].h_wallhitx : map.ray[x].v_wallhitx;
     map.ray[x].wallhity = (p1 < p2) ? map.ray[x].h_wallhity : map.ray[x].v_wallhity;
-    map.ray[x].wasvertical = (p1 < p2) ? 0 : 1;
-   fline(map.player.posx_p,map.player.posy_p,map.ray[x].wallhitx,map.ray[x].wallhity,angle,RED);
+    map.ray[x].wasvertical = (p1 < p2) ? 0 : 1;*/
+   // if (img.data[(6 * map.wall_height * map.el.res_x + (18 * map.wall_width))] == GREEN);
+    
+   fline2(x,map.player.posx_p,map.player.posy_p,2000,angle,RED);
+   //fline(map.player.posx_p,map.player.posy_p,map.ray[x].wallhitx,map.ray[x].wallhity,angle,RED,x);
   //  draw_line(map.player.posx_p,map.player.posy_p,map.ray[x].wallhitx,map.ray[x].wallhity, RED);
   
 }
@@ -306,12 +340,12 @@ void    project_wall()
 
     x = 0;
 
-    while (x < map.el.res_x)
+    while (x < map.el.nb_rays)
     {
         len = map.ray[x].distance;
         //printf("len = %f\n",len);
-        wallstripheight = map.ray[x].wallstripheight;
-        //fline(x,(map.el.res_y / 2) - (wallstripheight / 2),wallstripheight,M_PI / 2,WHITE);
+        wallstripheight = (map.wall_height / len) * map.distanceProjPlane ;
+        ft_line(x,(map.el.res_y / 2) - (wallstripheight / 2),wallstripheight,M_PI / 2,WHITE);
         //rec(x,(map.el.res_y / 2) - (wallstripheight / 2),1,wallstripheight);
         x++;
     }
