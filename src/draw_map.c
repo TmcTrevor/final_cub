@@ -61,8 +61,8 @@ float    ft_line( int x, int y, int size ,float angle, int color)
         y = or_y + (r * sin(angle));
 	
 		//ft_printf("i = %d ---------- j =%d\n",i, j);
-		//if (img.data[(int)(y *map.el.res_x + x)] == GREEN|| x > map.el.res_x || y > map.el.res_y )
-		//	break;
+	//if (x > map.el.res_x || y > map.el.res_y )
+	//		break;
 	 	img.data[(int)(y * map.el.res_x + x)] =  color;
 		
 		
@@ -93,22 +93,22 @@ void	draw_fov()
 	
 	angle = map.player.rotation_angle;
 	//printf("%f\n",angle);
-	while(x <  map.el.nb_rays)
+	while(x <  map.el.nb_rays - 2)
 	{
 		angle = normalize_angle(angle);
-		//check_angle(angle,x);
-		//cast_horizontal_inter_ray(angle, x);
+		check_angle(angle,x);
+		cast_horizontal_inter_ray(angle, x);
 		//reset_ray(x);
 		//check_angle(angle,x);
-		//cast_vertical_inter_ray(angle, x);
+		cast_vertical_inter_ray(angle, x);
 		
 		check_distance(x,angle);
-		//reset_ray(x);
+		reset_ray(x);
 		//ft_line(map.player.posx_p,map.player.posy_p,200,angle,BLUE)	;
 	//	map.ray[x].len = ft_line(map.player.posx_p,map.player.posy_p,2000,angle,BLUE);
 	//	map.ray[x].posx = map.player.posx_p;
 	///	map.ray[x].posy = map.player.posy_p;
-	///	map.ray[x].angle = normalize_angle(angle);
+		map.ray[x].angle = angle;//normalize_angle(angle);
 		//map.ray[x].wallstripheight = (map.wall_height / map.ray[x].len ) * map.distanceProjPlane;
 		//cast_ray();
 		
@@ -122,7 +122,7 @@ void	draw_dir()
 {
 	float angle;
 	angle = map.player.rotation_angle + M_PI /6;
-	ft_line(map.player.posx_p ,map.player.posy_p ,30,angle,RED);
+	ft_line(map.player.posx_p ,map.player.posy_p ,30,angle,BLUE);
 }
 int draw_player()
 {

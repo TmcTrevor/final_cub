@@ -73,15 +73,15 @@ int fking_move()
     //printf("angle = %f\n",map.player.rotation_angle);
     a = floor(map.player.posx_p / map.wall_width); 
     b =  floor(map.player.posy_p / map.wall_height);
-    x = (map.player.posx_p + (cos(map.player.rotation_angle+ M_PI / 6) * move) * 0.2);
-    y = (map.player.posy_p + (sin(map.player.rotation_angle+ M_PI / 6) * move) * 0.2);
+    x = (map.player.posx_p + (cos(map.player.rotation_angle+ M_PI / 6) * move) * 0.2) + 3;
+    y = (map.player.posy_p + (sin(map.player.rotation_angle+ M_PI / 6) * move) * 0.2) + 3;
     //x += 5 * map.player.w_dir;
     //y += 5 * map.player.w_dir;
     //printf("x1_P = %f ------ --- x2_P = %f\n",map.player.posx_p,map.player.posy_p);
     //ft_printf("x2_P = %d ------ --- x2_P = %d\n",x,y);
 
-    x = floor(x / map.wall_width );
-    y = floor(y /map.wall_height);
+    x = floor(x / map.wall_width) ;
+    y = floor(y /map.wall_height) ;
      
    // ft_printf("x = %d ------ --- b = %d ------ %c \n",x,b);
    /* if (a == x + map.player.w_dir)
