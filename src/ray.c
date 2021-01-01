@@ -118,7 +118,7 @@ float    fline(int x, int y, int x1,int y1,float angle, int color,int e)
 		if (x > map.el.res_x || y > map.el.res_y || img.data[y *map.el.res_x + x] == GREEN)
 			break;
 	 	img.data[(int)(y * map.el.res_x + x)] =  color;
-   // img.data[(int)(y * map.el.res_x + x)] =  color;
+   img.data[(int)(y * map.el.res_x + x)] =  color;
 		
 		
 		
@@ -151,14 +151,15 @@ void  check_angle(float angle,int x)
  
 }
 
-int     is_wall2(int a, int b)
+int     is_wall2(float a, float b)
 {
-
-    a = floor(a / map.wall_width);
-    b = floor(b / map.wall_height);
-    if (a < 0 || b < 0 || a > map.parser->len - 1 || b > map.parser->line_nbr - 1 )
+    int x;
+    int y;
+    x = (int)(a   / map.wall_width);
+    y = (int)(b  / map.wall_height);
+    if (x < 0 || y < 0 || x > map.parser->len - 1 || y > map.parser->line_nbr - 1 )
         return 1;
-    if (map.parser->grid[b][a] == '1')
+    if (map.parser->grid[y][x] == '1')
         return 1;
    
     return 0;
@@ -169,10 +170,10 @@ void  cast_horizontal_inter_ray(float angle, int x)
     int yintercept;
     int xstep;
     int ystep;
-    int nextx;
-    int nexty;
-    int xtocheck;
-    int ytocheck;
+    float nextx;
+    float nexty;
+    float xtocheck;
+    float ytocheck;
     //line(map.player.posx_p,map.player.posy_p,0,0,RED);
     yintercept =  floor(map.player.posy_p / map.wall_height) * map.wall_height;
     yintercept += (map.ray[x].ray_down ) ? map.wall_height : 0;
@@ -182,15 +183,17 @@ void  cast_horizontal_inter_ray(float angle, int x)
    //img.data[yintercept * map.el.res_x + xintercept] = RED;
     ystep =  map.wall_height;
     ystep *= map.ray[x].ray_up ? -1 : 1;
-    
-    xstep = ystep / tan(angle);
+   /* if (angle == 0 || angle == M_PI || angle == M_PI / 2 || angle == ((3 * M_PI) / 2))
+      xstep = 0;*/
+   // else
+      xstep = ystep / tan(angle);
     xstep *= (map.ray[x].ray_left && xstep > 0) ? -1 : 1;
     xstep *= (map.ray[x].ray_right && xstep < 0)? -1 : 1;
     nextx = xintercept;
     nexty = yintercept;
-   // if (map.ray[x].ray_up)
-     // nexty--;
-    while(nextx >= 0 && nextx < map.el.res_x - 2 && nexty >=0 && nexty < map.el.res_y - 2)
+   //if (map.ray[x].ray_up)
+    //  nexty--;
+    while(nextx >= 0 && nextx <= map.el.res_x  && nexty >=0 && nexty <= map.el.res_y )
     {
       xtocheck = nextx;
       ytocheck = nexty + (map.ray[x].ray_up ? - 1 : 0);
@@ -249,9 +252,9 @@ void  cast_vertical_inter_ray(float angle, int x)
     nexty = yintercept;
  
    // img.data[nexty * map.el.res_x + nextx] = BLUE;
-   if (map.ray[x].ray_left)
-      nextx--;
-    while(nextx >= 0 && nextx < map.el.res_x - 2 && nexty >=0 && nexty < map.el.res_y - 2)
+   //if (map.ray[x].ray_left)
+     //nextx--;
+    while(nextx >= 0 && nextx <=map.el.res_x && nexty >=0 && nexty <= map.el.res_y )
     {
        //if (map.ray[x].ray_left)
       //  nextx--;
@@ -298,9 +301,9 @@ float    fline2( int e,int x, int y, int size ,float angle, int color)
         y = or_y + (r * sin(angle));
 	
 		//ft_printf("i = %d ---------- j =%d\n",i, j);
-		if (img.data[(int)(y *map.el.res_x + x)] == GREEN|| x > map.el.res_x || y > map.el.res_y )
+		if (is_wall2(x,y) || x > map.el.res_x || y > map.el.res_y )
 			break;
-	 //	img.data[(int)(y * map.el.res_x + x)] =  color;
+	 	img.data[(int)(y * map.el.res_x + x)] =  color;
 		
 		
 		
@@ -310,30 +313,32 @@ float    fline2( int e,int x, int y, int size ,float angle, int color)
 	a = distance(or_x,or_y,x,y);
 	//r /= 0.2;
   map.ray[e].distance = r;
+  //printf("-----------------------------------------------------------%f\n",r);
 	return r;
 	//printf("-----------------------------------------------------------%d\n",r);
 }
 void  check_distance(int x, float angle)
 {
-    int p1;
-    int p2;
+    float p1;
+    float p2;
     if (map.ray[x].horzwallhit)
-      p1 =distance(map.player.posx_p,map.player.posy_p,map.ray[x].h_wallhitx,map.ray[x].h_wallhity);
+		p1 = floor(distance(map.player.posx_p,map.player.posy_p,map.ray[x].h_wallhitx,map.ray[x].h_wallhity));
     else
-      p1 =1500;
+		p1 = INT_MAX;
     if (map.ray[x].verwallhit)
-    p2 = distance(map.player.posx_p,map.player.posy_p,map.ray[x].v_wallhitx,map.ray[x].v_wallhity);
+		p2 = floor(distance(map.player.posx_p,map.player.posy_p,map.ray[x].v_wallhitx,map.ray[x].v_wallhity));
     else
-    p2 = 1500;
-    if (angle == M_PI)
-      p1 = 1500;
+		p2 = INT_MAX;
+   /* if (angle == M_PI)
+      p1 = 1500;*/
     //("p1 =%d\np2 = %d\n",p1,p2);
-    //map.ray[x].distance = (p1 < p2) ? p1 : p2;
+  
+   // map.ray[x].distance = (p1 < p2) ? p1 + 1 : p2 + 1;
     map.ray[x].wallhitx = (p1 < p2) ? map.ray[x].h_wallhitx : map.ray[x].v_wallhitx;
     map.ray[x].wallhity = (p1 < p2) ? map.ray[x].h_wallhity : map.ray[x].v_wallhity;
     map.ray[x].wasvertical = (p1 < p2) ? 0 : 1;
    // if (img.data[(6 * map.wall_height * map.el.res_x + (18 * map.wall_width))] == GREEN);
-    
+    //printf("-----distance ------------------------------------------------------%f\n",map.ray[x].distance);
    fline2(x,map.player.posx_p,map.player.posy_p,2000,angle,RED);
   // fline(map.player.posx_p,map.player.posy_p,map.ray[x].wallhitx,map.ray[x].wallhity,angle,RED,x);
   //  draw_line(map.player.posx_p,map.player.posy_p,map.ray[x].wallhitx,map.ray[x].wallhity, RED);
@@ -343,19 +348,21 @@ void    project_wall()
 {
     int x;
     float len;
-    int wallstripheight;
-    int wallTopPixel;
+    float wallstripheight;
+    float wallTopPixel;
     x = 0;
     //float a = 3 * M_PI/2;
     int y;
     int color;
-    int wallbottomPixel;
+    int e;
+
+    float wallbottomPixel;
 
     while (x < map.el.nb_rays - 2)
     {
-        len = floor(map.ray[x].distance * cos(map.ray[x].angle - map.player.rotation_angle));
+        len = map.ray[x].distance ;// * cos(map.ray[x].angle - map.player.rotation_angle);
         //printf("len = %f\n",len);
-        wallstripheight = floor((map.wall_height / len) * map.distanceProjPlane) ;
+        wallstripheight = (map.wall_height / len) * map.distanceProjPlane;
         wallTopPixel = (map.el.res_y / 2) - (wallstripheight / 2);
         wallTopPixel = (wallTopPixel < 0) ? 0 : wallTopPixel;
         wallbottomPixel = (map.el.res_y / 2) + (wallstripheight / 2);
@@ -363,12 +370,20 @@ void    project_wall()
         //ft_line(x,(map.el.res_y / 2) - (wallstripheight / 2),wallstripheight,M_PI / 2,WHITE);
        // rec(x,(map.el.res_y / 2) - (wallstripheight / 2),1,wallstripheight);
         y = wallTopPixel;
+        e = 0;
+        while (e < wallTopPixel)
+        {
+          color = BLUE;
+          img.data[e * map.el.res_x + x] =  color;
+          e++;
+
+        }
         while (y < wallbottomPixel)
         {
-          if (map.ray[x].wasvertical)
+          //if (map.ray[x].wasvertical)
             color = WHITE;
-          else
-            color = BLUE;
+          //else
+           // color = BLUE;
           img.data[y * map.el.res_x + x] =  color;
           y++;
         }

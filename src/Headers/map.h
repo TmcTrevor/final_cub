@@ -8,6 +8,7 @@
 #include "elements.h"
 #include "texture.h"
 #include "ray.h"
+#include <limits.h>
 
 typedef struct s_parser{
         //t_array_list lines;
@@ -94,6 +95,8 @@ int             ft_key();
 //oid  parser_do_final(t_parser *this);
 //void   free_parser(void *this);
 //void sprite_tex_parser(char *line);
+float	normalize_angle(float angle);
+int     is_wall2(float a, float b);
 
 #endif
 

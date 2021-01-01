@@ -59,7 +59,7 @@ int		player_data()
 	map.player.rotation_speed = 2 * (M_PI / 180);
 	map.el.wsw = 1;
 	map.el.nb_rays = map.el.res_x / map.el.wsw;
-	map.distanceProjPlane = (map.el.res_x / 2) / tan(M_PI /6);
+	map.distanceProjPlane = (map.el.res_x / 2)  * tan(M_PI /6);
 	init_ray();
 	
 	if (!(map.spr.zbuffer = malloc(sizeof(float *) * map.el.res_x + 1)))

@@ -17,6 +17,7 @@ typedef struct s_player{
     float      mov_speed;
     int         w_dir;
     int         t_dir;
+	int			rl_dir;
     int         offset;
     float       planex;
     float       planey;

@@ -8,7 +8,7 @@ typedef struct s_ray{
         float    posy;  
         float   len;
         int     kind;
-        double   angle;
+        float   angle;
         float   xstep;
         float   ystep;
         float   xintercept;
@@ -57,7 +57,7 @@ void  cast_horizontal_inter_ray(float angle, int x);
 void    check_angle(float angle, int x);
 void    reset_ray(int x);
 int     is_wall(int a, int b);
-double distance(int x,int y, int x1,int y1);
+float distance(float x,float y, float x1,float y1);
 //float    ft_line( int x, int y, int size ,float angle, int color);
 void  cast_vertical_inter_ray(float angle, int x);
 void    check_distance(int x, float angle);

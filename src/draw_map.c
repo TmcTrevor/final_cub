@@ -1,6 +1,6 @@
 #include "Headers/cube3d.h"
 
-void	ft_cube(int x, int y)
+void	ft_cube(float x, float y, int color)
 {
 	int i;
 	int j;
@@ -8,16 +8,16 @@ void	ft_cube(int x, int y)
 	//ft_printf("%d\n",map.parser->line_nbr);
 	//x *= (map.el.res_x / map.parser->line_nbr) ;
 	//y *= (map.el.res_y / map.parser->column_nbr);
-	i =floor(( x + map.wall_width));
-	a =floor(( y + map.wall_height));
+	i = x + floor(map.wall_width);
+	a = y + floor(map.wall_height);
 	
 	j = y;
-	while (x <= i)
+	while (x < i)
 	{
 		y = j;
-		while (y <= a)
+		while (y < a)
 		{
-			img.data[(y * map.el.res_x + x)] = GREEN;
+			img.data[((int)(y * map.el.res_x + x))] = color;
 			y++;
 		}
 		x++;
@@ -39,9 +39,9 @@ void	ft_cube(int x, int y)
 		x++;
 	}
 }*/
-double distance(int x,int y, int x1,int y1)
+float distance(float x,float y, float x1,float y1)
 {
-	return (sqrt(pow(x1 - x,2) +pow(y1 -y,2)));
+	return (sqrt(pow(x1 - x,2) + pow(y1 -y,2)));
 }
 float    ft_line( int x, int y, int size ,float angle, int color)
 {
@@ -61,8 +61,8 @@ float    ft_line( int x, int y, int size ,float angle, int color)
         y = or_y + (r * sin(angle));
 	
 		//ft_printf("i = %d ---------- j =%d\n",i, j);
-	//if (x > map.el.res_x || y > map.el.res_y )
-	//		break;
+	if (x > map.el.res_x || y > map.el.res_y||  is_wall2(x,y))
+			break;
 	 	img.data[(int)(y * map.el.res_x + x)] =  color;
 		
 		
@@ -82,6 +82,29 @@ float	normalize_angle(float angle)
 		angle += (2 * M_PI);
 	return angle;
 }
+void	reset_all()
+{
+
+int x;
+
+    x = 0;
+   // map.ray = (t_ray *)malloc((map.el.nb_rays * sizeof(t_ray)));
+    while (x <= map.el.nb_rays)
+    {
+        map.ray[x].len = 0;
+		map.ray[x].posx = map.player.posx_p;
+		map.ray[x].posy = map.player.posy_p;
+		map.ray[x].angle = 0;
+		map.ray[x].wallstripheight = 0;
+   map.ray[x].ray_down = 0;
+     map.ray[x].ray_up = 0;
+     map.ray[x].ray_right = 0;
+     map.ray[x].ray_left = 0; 
+     map.ray[x].horzwallhit = 0;
+     map.ray[x].verwallhit = 0;       
+        x++;
+    }
+}
 void	draw_fov()
 {
 	double angle;
@@ -93,7 +116,8 @@ void	draw_fov()
 	
 	angle = map.player.rotation_angle;
 	//printf("%f\n",angle);
-	while(x <  map.el.nb_rays - 2)
+	reset_all();
+	while(x <=   map.el.nb_rays)
 	{
 		angle = normalize_angle(angle);
 		check_angle(angle,x);
@@ -113,8 +137,10 @@ void	draw_fov()
 		//cast_ray();
 		
 		angle += (M_PI / 3) / map.el.nb_rays;
+		angle = normalize_angle(angle);
 		x++;
 	}
+	
 	//reset_ray();
 	
 }
@@ -122,7 +148,7 @@ void	draw_dir()
 {
 	float angle;
 	angle = map.player.rotation_angle + M_PI /6;
-	ft_line(map.player.posx_p ,map.player.posy_p ,30,angle,BLUE);
+	ft_line(map.player.posx_p ,map.player.posy_p ,2000,angle,BLUE);
 }
 int draw_player()
 {
@@ -144,8 +170,8 @@ int draw_map()
 {
 	int i;
 	int j;
-	int x;
-	int y;
+	float x;
+	float y;
 
 	i = 0;
 	x = 0;
@@ -154,6 +180,8 @@ int draw_map()
 	img.img_ptr = mlx_new_image(mlx.mlx_ptr, map.el.res_x, map.el.res_y);
 	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp,
 		&img.size_l, &img.endian);
+		draw_fov();
+		project_wall();
    while(map.parser->grid[i])
 	{
 		j = 0;
@@ -163,31 +191,33 @@ int draw_map()
 			if(map.parser->grid[i][j] == '1')
 			{
 				
-				ft_cube(x,y);
-				 x += (int)map.wall_width; 
+				ft_cube(x,y,GREEN);
+				 x += map.wall_width ; 
 				//j++;
 			
 				
 			}
-			if(map.parser->grid[i][j] == '0' || map.parser->grid[i][j] == ' ' || map.parser->grid[i][j] == '2' )
+			if(map.parser->grid[i][j] == '0' || map.parser->grid[i][j] == ' ' || map.parser->grid[i][j] == '2')
 			 { 
+				 if(map.parser->grid[i][j] == '0' || map.parser->grid[i][j] == '2')
+				 	ft_cube(x,y,0);
 				 x += map.wall_width;
 			}
 			
 
 			j++;
 		}
-		y += (int)map.wall_height;
+		y += map.wall_height ;
 		i++;
 
 	}
-
+	
 	draw_player();
 	/*	mlx_destroy_image(mlx.mlx_ptr,img.img_ptr);
 		img.img_ptr = mlx_new_image(mlx.mlx_ptr, map.el.res_x, map.el.res_y);
 	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp,
 		&img.size_l, &img.endian);*/
-	project_wall();
+	//project_wall();
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win, img.img_ptr, 0, 0);
 	
 
