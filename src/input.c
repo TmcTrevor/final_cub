@@ -84,13 +84,13 @@ int fking_move()
     b =  floor(map.player.posy_p / map.wall_height);
     if (map.player.rl_dir)
     {
-        x = (map.player.posx_p + (cos(map.player.rotation_angle + M_PI / 6 - ( 3 * M_PI / 2)) * move) * 0.2);
+        x = (map.player.posx_p + (cos(map.player.rotation_angle + M_PI / 6 - ( 3 * M_PI / 2)) * move)* 0.2);
         y = (map.player.posy_p + (sin(map.player.rotation_angle + M_PI / 6  - ( 3 * M_PI / 2)) * move) * 0.2);
     }
     else
     {
-    x = (map.player.posx_p + (cos(map.player.rotation_angle+ M_PI / 6) * move) * 0.2);
-    y = (map.player.posy_p + (sin(map.player.rotation_angle+ M_PI / 6) * move) * 0.2);
+    x = (map.player.posx_p + (cos(map.player.rotation_angle+ M_PI / 6) * move)* 0.2);
+    y = (map.player.posy_p + (sin(map.player.rotation_angle+ M_PI / 6) * move)* 0.2);
     }
     //x += 5 * map.player.w_dir;
     //y += 5 * map.player.w_dir;
