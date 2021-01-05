@@ -89,7 +89,7 @@ int get_elements()
 	if (get_ceilling_color() < 0)
 		return (-1);
 	create_hex_color();
-	/*if (!get_sprite_texture())
+	if (!get_sprite_texture())
 		return (-1);
 	if (!get_north_texture())
 		return (-1);
@@ -98,7 +98,8 @@ int get_elements()
 	if (!get_west_texture())
 		return (-1);
 	if (!get_east_texture())
-		return (-1);*/
-  
+		return (-1);
+	printf(" ---North %s\n",map.el.n_path);
+	
 	return (1);
 }

@@ -18,4 +18,9 @@ typedef struct		s_tex
 }					t_tex;
 
 void    free_tex();
+char	*get_sprite_texture();
+char	*get_north_texture();
+char	*get_west_texture();	
+char	*get_east_texture();
+char	*get_south_texture();
 #endif

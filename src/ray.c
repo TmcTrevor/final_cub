@@ -201,8 +201,8 @@ void  cast_horizontal_inter_ray(float angle, int x)
     ystep = map.wall_height;
     ystep *= map.ray[x].ray_up ? -1 : 1;
    /* if (angle == 0 || angle == M_PI || angle == M_PI / 2 || angle == ((3 * M_PI) / 2))
-      xstep = 0;*/
-   // else
+      xstep = 0;
+    else*/
       xstep = ystep / tan(angle);
     xstep *= (map.ray[x].ray_left && xstep > 0) ? -1 : 1;
     xstep *= (map.ray[x].ray_right && xstep < 0)? -1 : 1;
@@ -339,11 +339,11 @@ void  check_distance(int x, float angle)
     float p1;
     float p2;
     if (map.ray[x].horzwallhit)
-		p1 = floor(distance(map.player.posx_p,map.player.posy_p,map.ray[x].h_wallhitx,map.ray[x].h_wallhity));
+		p1 = distance(map.player.posx_p,map.player.posy_p,map.ray[x].h_wallhitx,map.ray[x].h_wallhity);
     else
 		p1 = INT_MAX;
     if (map.ray[x].verwallhit)
-		p2 = floor(distance(map.player.posx_p,map.player.posy_p,map.ray[x].v_wallhitx,map.ray[x].v_wallhity));
+		p2 = distance(map.player.posx_p,map.player.posy_p,map.ray[x].v_wallhitx,map.ray[x].v_wallhity);
     else
 		p2 = INT_MAX;
    /* if (angle == M_PI)
