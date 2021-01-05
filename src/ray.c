@@ -374,6 +374,8 @@ void    project_wall()
     x = 0;
     //float a = 3 * M_PI/2;
     int y;
+    int texx;
+    int texy;
     int color;
     int e;
 
@@ -400,15 +402,32 @@ void    project_wall()
           e++;
 
         }
+        if (map.ray[x].wasvertical)
+          texx = (int)map.ray[x].wallhity % map.tex.texheight;
+        else
+      
+          texx = (int)map.ray[x].wallhitx % map.tex.texwidth;
+        
+        
+     // if(map.ray[x].ray_up && map.ray[x].wasvertical)
+      {
         while (y < wallbottomPixel)
         {
-          if (map.ray[x].wasvertical)
+         int distancefromtop = y + (wallstripheight / 2) - (map.el.res_y / 2);
+          if (map.ray[x].wasvertical )
+          {
             color = WHITE;
-          else
+            texy = distancefromtop * ((float)map.tex.texheight / wallstripheight);
+            img.data[(map.el.res_x * y) + x] = map.tex.color_n[(map.tex.texheight * texy) + texx];
+          }
+          else {
             color = RED;
           img.data[y * map.el.res_x + x] =  color;
+          }
           y++;
         }
         x++;
+      }
+      
     }
 }

@@ -56,8 +56,8 @@ int		player_data()
 	map.player.posy_p = map.player.posy * map.wall_height;
 	map.player.posx_p += map.wall_width  / 2;
 	map.player.posy_p += map.wall_height /2;
-	map.tex.texwidth = 64;
-	map.tex.texheight = 64;
+	map.tex.texwidth = map.wall_width / 0.2;
+	map.tex.texheight = map.wall_height / 0.2;
 	map.spr.sprwidth = 0;
 	map.spr.sprheight = 0;
 	map.player.mov_speed = 30;

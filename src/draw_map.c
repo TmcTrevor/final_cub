@@ -165,6 +165,7 @@ int draw_player()
 	draw_dir();
 	return (1);
 }
+
 int draw_map()
 {
 	int i;
@@ -179,6 +180,7 @@ int draw_map()
 	img.img_ptr = mlx_new_image(mlx.mlx_ptr, map.el.res_x, map.el.res_y);
 	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp,
 										&img.size_l, &img.endian);
+	initialize_texture();
 	draw_fov();
 		project_wall();
 	while (map.parser->grid[i])

@@ -99,7 +99,7 @@ int get_elements()
 		return (-1);
 	if (!get_east_texture())
 		return (-1);
-	printf(" ---North %s\n",map.el.n_path);
+	//printf(" ---North %s\n",map.el.n_path);
 	
 	return (1);
 }
