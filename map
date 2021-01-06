@@ -1,9 +1,9 @@
 R      1920   1080 
-NO                 ./textures/colorstone.xpm
+NO                 ./textures/mur_neon.xpm
 SO   ./textures/greystone.xpm
 
 WE     ./textures/bluestone.xpm
-EA   ./textures/wood.xpm
+EA   ./textures/black7_1.xpm
 
 S                ./textures/barrel.xpm
 F    255  ,  248  ,  220

@@ -407,27 +407,57 @@ void    project_wall()
         else
       
           texx = (int)map.ray[x].wallhitx % map.tex.texwidth;
+        ////north
         
-        
-     // if(map.ray[x].ray_up && map.ray[x].wasvertical)
+      if(map.ray[x].ray_up && !map.ray[x].wasvertical)
       {
         while (y < wallbottomPixel)
         {
          int distancefromtop = y + (wallstripheight / 2) - (map.el.res_y / 2);
-          if (map.ray[x].wasvertical )
-          {
-            color = WHITE;
-            texy = distancefromtop * ((float)map.tex.texheight / wallstripheight);
+            texy = distancefromtop * (map.tex.texheight / wallstripheight);
             img.data[(map.el.res_x * y) + x] = map.tex.color_n[(map.tex.texheight * texy) + texx];
+            y++;
           }
-          else {
-            color = RED;
-          img.data[y * map.el.res_x + x] =  color;
+      }
+      ////south
+      if(map.ray[x].ray_down && !map.ray[x].wasvertical)
+      {
+        while (y < wallbottomPixel)
+        {
+         int distancefromtop = y + (wallstripheight / 2) - (map.el.res_y / 2);
+            texy = distancefromtop * (map.tex.texheight / wallstripheight);
+            img.data[(map.el.res_x * y) + x] = map.tex.color_s[(map.tex.texheight * texy) + texx];
+            y++;
           }
-          y++;
-        }
+      }
+      if(map.ray[x].ray_right && map.ray[x].wasvertical)
+      {
+        while (y < wallbottomPixel)
+        {
+         int distancefromtop = y + (wallstripheight / 2) - (map.el.res_y / 2);
+            texy = distancefromtop * (map.tex.texheight / wallstripheight);
+            img.data[(map.el.res_x * y) + x] = map.tex.color_e[(map.tex.texheight * texy) + texx];
+            y++;
+          }
+      }
+      if(map.ray[x].ray_left && map.ray[x].wasvertical)
+      {
+        while (y < wallbottomPixel)
+        {
+         int distancefromtop = y + (wallstripheight / 2) - (map.el.res_y / 2);
+            texy = distancefromtop * (map.tex.texheight / wallstripheight);
+            img.data[(map.el.res_x * y) + x] = map.tex.color_w[(map.tex.texheight * texy) + texx];
+            y++;
+          }
+      }
+      int u = wallbottomPixel;
+      while (u < map.el.res_y)
+      {
+        img.data[u * map.el.res_x + x] =  GREY;
+        u++;
+      }
         x++;
       }
       
     }
-}
+
