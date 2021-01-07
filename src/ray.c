@@ -374,13 +374,14 @@ void    project_wall()
     x = 0;
     //float a = 3 * M_PI/2;
     int y;
-    int texx;
-    int texy;
+   float texx;
+    float texy;
     int color;
     int e;
-
+    int i;
     float wallbottomPixel;
 
+    i = 0;
     while (x <= map.el.nb_rays - 2)
     {
         len = map.ray[x].distance * cos(normalize_angle(map.ray[x].angle - map.player.rotation_angle - (M_PI / 6)));
@@ -402,20 +403,35 @@ void    project_wall()
           e++;
 
         }
-        if (map.ray[x].wasvertical)
-          texx = (int)map.ray[x].wallhity % map.tex.texheight;
+    if (map.ray[x].wasvertical)
+        {
+          texx = fmod(map.ray[x].wallhity , map.wall_width);
+          //texx -= (int)texx;
+           texx *= map.tex.texheight / map.wall_width;
+        }
         else
-      
-          texx = (int)map.ray[x].wallhitx % map.tex.texwidth;
+        {
+          texx = fmod(map.ray[x].wallhitx , map.wall_width);
+          texx *= map.tex.texwidth / map.wall_height;
+        }
+        
+       
+        
+       // texx *= map.tex.texwidth / map.wall_height;
+         
         ////north
         
       if(map.ray[x].ray_up && !map.ray[x].wasvertical)
       {
+        
         while (y < wallbottomPixel)
         {
          int distancefromtop = y + (wallstripheight / 2) - (map.el.res_y / 2);
-            texy = distancefromtop * (map.tex.texheight / wallstripheight);
-            img.data[(map.el.res_x * y) + x] = map.tex.color_n[(map.tex.texheight * texy) + texx];
+            texy = distancefromtop * (float)(map.tex.texheight / wallstripheight);
+           // int a = texx;
+            //int b = texy;
+           // printf("%d\n",a);
+            img.data[(map.el.res_x * y) + x] = map.tex.color_n[(map.tex.texheight * (int)texy) + (int)texx];
             y++;
           }
       }
@@ -425,8 +441,8 @@ void    project_wall()
         while (y < wallbottomPixel)
         {
          int distancefromtop = y + (wallstripheight / 2) - (map.el.res_y / 2);
-            texy = distancefromtop * (map.tex.texheight / wallstripheight);
-            img.data[(map.el.res_x * y) + x] = map.tex.color_s[(map.tex.texheight * texy) + texx];
+            texy = distancefromtop *  (float)(map.tex.texheight / wallstripheight);
+            img.data[(map.el.res_x * y) + x] = map.tex.color_s[(map.tex.texwidth * (int)texy) + (int)texx];
             y++;
           }
       }
@@ -435,8 +451,8 @@ void    project_wall()
         while (y < wallbottomPixel)
         {
          int distancefromtop = y + (wallstripheight / 2) - (map.el.res_y / 2);
-            texy = distancefromtop * (map.tex.texheight / wallstripheight);
-            img.data[(map.el.res_x * y) + x] = map.tex.color_e[(map.tex.texheight * texy) + texx];
+            texy = distancefromtop *  (float)(map.tex.texheight / wallstripheight);
+            img.data[(map.el.res_x * y) + x] = map.tex.color_e[(map.tex.texwidth * (int)texy) + (int)texx];
             y++;
           }
       }
@@ -445,8 +461,8 @@ void    project_wall()
         while (y < wallbottomPixel)
         {
          int distancefromtop = y + (wallstripheight / 2) - (map.el.res_y / 2);
-            texy = distancefromtop * (map.tex.texheight / wallstripheight);
-            img.data[(map.el.res_x * y) + x] = map.tex.color_w[(map.tex.texheight * texy) + texx];
+            texy = distancefromtop * (float)(map.tex.texheight / wallstripheight);
+            img.data[(map.el.res_x * y) + x] = map.tex.color_w[(map.tex.texheight * (int)texy) + (int)texx];
             y++;
           }
       }

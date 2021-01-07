@@ -7,7 +7,7 @@ int		write_error_floor(int i)
 	{
 		write(1, "Error\n", 6);
 		write(1, "Wrong arguments\n", 16);
-		//exit_all(m);
+		exit_all();
 	}
 	return (-1);
 }
@@ -18,7 +18,7 @@ int		write_error_end_floor(int i)
 	{
 		write(1, "Error\n", 6);
 		write(1, "Wrong arguments\n", 16);
-		//exit_all(m);
+		exit_all();
 	}
 	return (-1);
 }

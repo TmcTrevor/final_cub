@@ -43,8 +43,8 @@ int		player_data()
 	data_e_w();
 	data_n_s();
 	
-	map.wall_width = (map.el.res_x / map.parser->len) * 0.2;
-	map.wall_height = (map.el.res_y / map.parser->line_nbr) * 0.2;
+	map.wall_width = 400 * 0.02; //(map.el.res_x / map.parser->len) * 0.2;
+	map.wall_height = 400 * 0.02;//(map.el.res_y / map.parser->line_nbr) * 0.2;
 	/*if(map.wall_width % 2 != 0)
 		map.wall_width--;
 	if(map.wall_height % 2 != 0)
@@ -56,11 +56,12 @@ int		player_data()
 	map.player.posy_p = map.player.posy * map.wall_height;
 	map.player.posx_p += map.wall_width  / 2;
 	map.player.posy_p += map.wall_height /2;
-	map.tex.texwidth = map.wall_width / 0.2;
-	map.tex.texheight = map.wall_height / 0.2;
+	//map.tex.texwidth = map.wall_width / 0.2;
+	//map.tex.texheight = map.wall_height / 0.2;
 	map.spr.sprwidth = 0;
 	map.spr.sprheight = 0;
 	map.player.mov_speed = 30;
+
 	map.player.rotation_speed = 2 * (M_PI / 180);
 	map.el.wsw = 1;
 	map.el.nb_rays = map.el.res_x / map.el.wsw;

@@ -113,7 +113,7 @@ void draw_fov()
 	angle = 0;
 
 	angle = map.player.rotation_angle;
-	printf("ROTAN %f\n", angle);
+	//printf("ROTAN %f\n", angle);
 	reset_all();
 	while (x <= map.el.nb_rays - 2)
 	{

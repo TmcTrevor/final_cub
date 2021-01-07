@@ -17,7 +17,7 @@ typedef struct s_ray{
         float   h_wallhity;
         float   v_wallhitx;
         float   v_wallhity;
-        float   wallhitx;
+        int   wallhitx;
         float   wallhity;
         float   distance;
         float   wallstripheight;
