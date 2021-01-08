@@ -69,12 +69,12 @@ map.tex.color_n = (int*)mlx_get_data_addr(map.tex.color_n,
 }
 
 
-/*int		generate_textures(t_index *m)
+/*int		generate_textures()
 {
-	if (create_images1(m) < 0)
-		return (exit_all(m));
-	if (create_images2(m) < 0)
-		return (exit_all(m));
+	if (create_images1() < 0)
+		return (exit_all());
+	if (create_images2() < 0)
+		return (exit_all());
 	
 	return (0);
 }*/

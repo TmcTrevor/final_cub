@@ -376,6 +376,8 @@ void    project_wall()
     int y;
    float texx;
     float texy;
+    int texx2;
+    int texy2;
     int color;
     int e;
     int i;
@@ -405,17 +407,20 @@ void    project_wall()
         }
     if (map.ray[x].wasvertical)
         {
-          texx = fmod(map.ray[x].wallhity , map.wall_width);
+          texx = fmod(map.ray[x].wallhity , map.wall_width );
           //texx -= (int)texx;
+            //texx = map.ray[x].wallhity % 
            texx *= map.tex.texheight / map.wall_width;
         }
         else
         {
-          texx = fmod(map.ray[x].wallhitx , map.wall_width);
-          texx *= map.tex.texwidth / map.wall_height;
+           texx = fmod(map.ray[x].wallhitx , map.wall_width );//fmod(map.ray[x].wallhitx , map.wall_width );
+          //texx = map.ray[x].wallhitx * map.wall_width
+          texx *= map.tex.texheight / map.wall_width;
+           //texx /= map.tex.texheight * map;
         }
         
-       
+      // texx -= floor(texx);
         
        // texx *= map.tex.texwidth / map.wall_height;
          
@@ -428,10 +433,8 @@ void    project_wall()
         {
          int distancefromtop = y + (wallstripheight / 2) - (map.el.res_y / 2);
             texy = distancefromtop * (float)(map.tex.texheight / wallstripheight);
-           // int a = texx;
-            //int b = texy;
-           // printf("%d\n",a);
-            img.data[(map.el.res_x * y) + x] = map.tex.color_n[(map.tex.texheight * (int)texy) + (int)texx];
+          
+            img.data[(map.el.res_x * y) + x] = map.tex.color_n[(map.tex.texwidth * (int)texy) + (int)texx];
             y++;
           }
       }
@@ -442,7 +445,7 @@ void    project_wall()
         {
          int distancefromtop = y + (wallstripheight / 2) - (map.el.res_y / 2);
             texy = distancefromtop *  (float)(map.tex.texheight / wallstripheight);
-            img.data[(map.el.res_x * y) + x] = map.tex.color_s[(map.tex.texwidth * (int)texy) + (int)texx];
+            img.data[(map.el.res_x * y) + x] = map.tex.color_s[(map.tex.texheight * (int)texy) + (int)texx];
             y++;
           }
       }

@@ -43,8 +43,8 @@ int		player_data()
 	data_e_w();
 	data_n_s();
 	
-	map.wall_width = 400 * 0.02; //(map.el.res_x / map.parser->len) * 0.2;
-	map.wall_height = 400 * 0.02;//(map.el.res_y / map.parser->line_nbr) * 0.2;
+	map.wall_width = 64 * 0.2; //(map.el.res_x / map.parser->len) * 0.2;
+	map.wall_height = 64 * 0.2;//(map.el.res_y / map.parser->line_nbr) * 0.2;
 	/*if(map.wall_width % 2 != 0)
 		map.wall_width--;
 	if(map.wall_height % 2 != 0)
