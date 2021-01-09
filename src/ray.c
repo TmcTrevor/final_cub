@@ -152,7 +152,7 @@ void  check_angle(float angle,int x)
       map.ray[x].ray_left = 1;
  
 }
-int     is_wall2(float a, float b)
+int     is_wall2(float a, float b,char c)
 {
     int x;
     int y;
@@ -160,7 +160,7 @@ int     is_wall2(float a, float b)
     y = (int)(b  / map.wall_height);
     if (x < 0 || y < 0 || x > map.parser->len - 1 || y > map.parser->line_nbr - 1 )
         return 1;
-    if (map.parser->grid[y][x] == '1')
+    if (map.parser->grid[y][x] == c)
         return 1;
    
     return 0;
@@ -216,7 +216,7 @@ void  cast_horizontal_inter_ray(float angle, int x)
       ytocheck = nexty + (map.ray[x].ray_up ? - 1 : 0);
        //  if (map.ray[x].ray_up)
       //nexty--; 
-      if (is_wall2(xtocheck,ytocheck))
+      if (is_wall2(xtocheck,ytocheck,'1'))
       {
         //wall_hit = true;
         map.ray[x].horzwallhit = 1;
@@ -277,7 +277,7 @@ void  cast_vertical_inter_ray(float angle, int x)
         //nextx--;
       xtocheck = nextx + (map.ray[x].ray_left ? -1 : 0);
       ytocheck = nexty;
-      if (is_wall2(xtocheck,ytocheck))
+      if (is_wall2(xtocheck,ytocheck,'1'))
       {
          map.ray[x].verwallhit = 1;
         map.ray[x].v_wallhitx = nextx;
@@ -318,7 +318,7 @@ float    fline2( int e,int x, int y, int size ,float angle, int color)
         y = or_y + (r * sin(angle));
 	
 		//ft_printf("i = %d ---------- j =%d\n",i, j);
-		if (is_wall2(x,y) || x > map.el.res_x || y > map.el.res_y )
+		if (is_wall2(x,y,'1') || x > map.el.res_x || y > map.el.res_y )
 			break;
 	 	img.data[(int)(y * map.el.res_x + x)] =  color;
 		

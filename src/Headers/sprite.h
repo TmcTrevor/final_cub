@@ -27,6 +27,8 @@ typedef struct		s_spr
 	float	*sprites_y;
 	float	spritedistance;
 	int		vmovescreen;
+	
+
 }					t_spr;
 void	free_spr();
 #endif

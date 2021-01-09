@@ -1,21 +1,20 @@
 #include "../Headers/cube3d.h"
 //extern t_map *map;
-int		return_error()
+int return_error()
 {
 	write(1, "Error\n", 6);
 	write(1, "Multiple initial positions\n", 27);
 	return (exit_all());
 }
 
-int	write_error_one()
+int write_error_one()
 {
 	write(1, "Error\n", 6);
 	write(1, "Error in parsing\n", 17);
 	return (exit_all());
-	
 }
 
-int		parse_map(int fd)
+int parse_map(int fd)
 {
 	char *line;
 
@@ -40,10 +39,10 @@ int		parse_map(int fd)
 	line = NULL;
 	return (1);
 }
-int		parse_line(int fd)
+int parse_line(int fd)
 {
-	char	*line;
-	int		i;
+	char *line;
+	int i;
 
 	i = 0;
 	map.parser->data = "";
@@ -69,10 +68,10 @@ int		parse_line(int fd)
 	return (1);
 }
 
-int		parse_main()
+int parse_main()
 {
-    int fd;
-    fd = map.parser->fd;
+	int fd;
+	fd = map.parser->fd;
 	if (parse_line(fd) < 0)
 		return (-1);
 	if (parse_map(fd) < 0)
@@ -90,13 +89,13 @@ int		parse_main()
 		return (-1);
 	if (check_map_errors() < 0)
 		return (-1);*/
-        int i = 0;
-       // printf("\n%d",fd);
-      // while(i < map.parser->line_nbr)
-      // printf("\n%s\n",map.parser->data);
-      // printf("hhhhhh");
-      // printf("\n%s",map.parser->map_string);
-	 // printf("\ne=%s e\n",map.parser->grid[i++]);
+	int i = 0;
+	// printf("\n%d",fd);
+	// while(i < map.parser->line_nbr)
+	// printf("\n%s\n",map.parser->data);
+	// printf("hhhhhh");
+	// printf("\n%s",map.parser->map_string);
+	// printf("\ne=%s e\n",map.parser->grid[i++]);
 
 	return (1);
 }

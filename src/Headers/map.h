@@ -97,7 +97,7 @@ int             ft_key();
 //void sprite_tex_parser(char *line);
 float	normalize_angle(float angle);
 //int     is_wall2(int a, int b);
-int     is_wall2(float a, float b);
+int     is_wall2(float a, float b, char c);
 
 #endif
 

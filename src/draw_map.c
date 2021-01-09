@@ -61,7 +61,7 @@ float ft_line(int x, int y, int size, float angle, int color)
 		y = or_y + (r * sin(angle));
 
 		//ft_printf("i = %d ---------- j =%d\n",i, j);
-		if (x > map.el.res_x || y > map.el.res_y || is_wall2(x, y))
+		if (x > map.el.res_x || y > map.el.res_y || is_wall2(x, y,'1'))
 			break;
 		img.data[(int)(y * map.el.res_x + x)] = color;
 
