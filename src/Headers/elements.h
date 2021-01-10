@@ -33,5 +33,7 @@ typedef struct		s_elements
 int		get_floor_color();
 int		get_ceilling_color();
 void	create_hex_color();
+int		check_elements_errors();
+int		check_map_errors();
 #endif
 

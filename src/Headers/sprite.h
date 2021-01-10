@@ -31,4 +31,5 @@ typedef struct		s_spr
 
 }					t_spr;
 void	free_spr();
+int		get_sprites();
 #endif

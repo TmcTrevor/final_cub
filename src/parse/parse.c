@@ -85,10 +85,10 @@ int parse_main()
 		return (-1);*/
 	if (get_elements() < 0)
 		return (-1);
-	/*if (check_elements_errors() < 0)
+	if (check_elements_errors() < 0)
 		return (-1);
-	if (check_map_errors() < 0)
-		return (-1);*/
+//	if (check_map_errors() < 0)
+//		return (-1);
 	int i = 0;
 	// printf("\n%d",fd);
 	// while(i < map.parser->line_nbr)

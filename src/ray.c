@@ -407,14 +407,14 @@ void    project_wall()
         }
     if (map.ray[x].wasvertical)
         {
-          texx = fmod(map.ray[x].wallhity , map.wall_width );
+          texx = fmod(map.ray[x].wallhity , map.wall_width);
           //texx -= (int)texx;
             //texx = map.ray[x].wallhity % 
-           texx *= map.tex.texheight / map.wall_width;
+          // texx *= map.tex.texheight / map.wall_width;
         }
         else
         {
-           texx = fmod(map.ray[x].wallhitx , map.wall_width );//fmod(map.ray[x].wallhitx , map.wall_width );
+           texx = fmod(map.ray[x].wallhitx , map.wall_width);//fmod(map.ray[x].wallhitx , map.wall_width );
           //texx = map.ray[x].wallhitx * map.wall_width
           texx *= map.tex.texheight / map.wall_width;
            //texx /= map.tex.texheight * map;

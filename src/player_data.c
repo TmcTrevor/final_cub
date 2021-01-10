@@ -49,13 +49,14 @@ int		player_data()
 		map.wall_width--;
 	if(map.wall_height % 2 != 0)
 		map.wall_height--;*/
-	
+	//printf("height %d \n width = %d\n",map.el.res_y / map.parser->line_nbr, map.el.res_x / map.parser->len);
 	map.player.posx = map.parser->pos_x_init;
 	map.player.posy = map.parser->pos_y_init;
 	map.player.posx_p = map.player.posx * map.wall_width;
 	map.player.posy_p = map.player.posy * map.wall_height;
 	map.player.posx_p += map.wall_width  / 2;
 	map.player.posy_p += map.wall_height /2;
+	printf("x = %f \ny= %f\n",map.player.posx_p,map.player.posy_p);
 	//map.tex.texwidth = map.wall_width / 0.2;
 	//map.tex.texheight = map.wall_height / 0.2;
 	map.spr.sprwidth = 0;
