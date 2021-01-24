@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_size.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/15 18:03:05 by mokhames          #+#    #+#             */
+/*   Updated: 2021/01/24 11:00:07 by mokhames         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../Headers/cube3d.h"
+
 char	*create_new_line(char *str, int diff)
 {
 	int		i;
@@ -18,11 +31,25 @@ char	*create_new_line(char *str, int diff)
 		i++;
 		diff--;
 	}
+	
 	new[i] = '\0';
+	//free(new);
 	return (new);
 }
 
-int		create_good_size_map()
+int		calcul_len(int len, int i)
+{
+	while (map.parser->grid[i] != NULL)
+	{
+		if (ft_strlen(map.parser->grid[i]) > len)
+			len = ft_strlen(map.parser->grid[i]);
+		i++;
+	}
+	map.parser->len = len;
+	return (len);
+}
+
+int		create_good_size_map(void)
 {
 	int i;
 	int len;
@@ -31,22 +58,15 @@ int		create_good_size_map()
 	i = 0;
 	diff = 0;
 	len = ft_strlen(map.parser->grid[i]);
-	while (map.parser->grid[i] != NULL)
-	{
-		if (ft_strlen(map.parser->grid[i]) > len)
-			len = ft_strlen(map.parser->grid[i]);
-		i++;
-	}
-	map.parser->len = len;
+	len = calcul_len(len, i);
 	i = 0;
 	while (map.parser->grid[i] != NULL)
 	{
 		if (ft_strlen(map.parser->grid[i]) < len)
 		{
 			diff = len - ft_strlen(map.parser->grid[i]);
-            //printf("\n d = %zu",ft_strlen("        1111111111111111111111111"));
-			//printf("\ndiff =%d\n len = %d\n",diff,len);
-			if (!(map.parser->grid[i] = create_new_line(map.parser->grid[i], diff)))
+			if (!(map.parser->grid[i] =
+				create_new_line(map.parser->grid[i], diff)))
 				return (-1);
 		}
 		i++;

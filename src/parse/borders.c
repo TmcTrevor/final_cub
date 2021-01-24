@@ -1,16 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   borders.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mokhames <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/14 15:55:07 by mokhames          #+#    #+#             */
+/*   Updated: 2021/01/14 15:55:12 by mokhames         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../Headers/cube3d.h"
 
-int		return_error_exit()
+int		return_error_exit(void)
 {
 	write(1, "Error\n", 6);
 	write(1, "Map not surrounded by 1\n", 24);
 	return (exit_all());
-	
 }
 
-int     check_borders_columns()
+int		check_borders_columns(void)
 {
-    int i;
+	int i;
 	int j;
 
 	i = 0;
@@ -32,13 +43,13 @@ int     check_borders_columns()
 	}
 	return (1);
 }
-int     check_borders_lines()
+
+int		check_borders_lines(void)
 {
-    int i;
+	int i;
 
-    i = 0;
-
-    while (map.parser->grid[0][i] != '\0')
+	i = 0;
+	while (map.parser->grid[0][i] != '\0')
 	{
 		if (map.parser->grid[0][i] != '1' && map.parser->grid[0][i] != ' ')
 			return_error_exit();
@@ -52,6 +63,5 @@ int     check_borders_lines()
 			return_error_exit();
 		i++;
 	}
-
-    return (1);
+	return (1);
 }

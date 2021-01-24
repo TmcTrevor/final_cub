@@ -7,9 +7,9 @@
 #include "fcntl.h"
 #include "map.h"
 #include "player.h"
-#include "vector.h"
+
 #include "../../GNL/get_next_line.h"
-#include "array_list.h"
+
 #include "ray.h"
 #include "sprite.h"
 #include "elements.h"
@@ -67,6 +67,7 @@
 # define MLXK_DOWN 125
 # define MLXK_TD 14
 # define MLXK_TG 12
+# define FOV_ANGLE 1.04719755
 
 /*
  Defines for the width and height of your window. I suggest you to do the same so
@@ -130,7 +131,7 @@ int     nie(int key,void *p);
 t_mlx	mlx;
 t_img 	img; 
 //t_player *player;
-int q;
+
 t_player *player;
 t_map map;
 
@@ -141,17 +142,15 @@ t_map map;
 int 	start_game();
 void	init_struct();
 void	read_map(t_map *map);
-void	ft_hello(t_mlx f,t_map *map,t_img l);
+
 void	read_2d_map(t_map *map);
-//void	ft_cube(int *x, int *y);
+
 t_map	*new_game(t_map *map);
-t_vector    *new_vec(t_vector *vec,int x,int y);
-t_player  *new_player(t_player *player,t_vector *pos);
 double  normelize_angel(double angle);
 void image_put_pixel(int x, int y, int color);
 void	line(int x0, int y0, int x1, int y1, int color);
 double      ray_len(t_ray *ray);
-void sub(t_vector *this, t_vector *o);
+
 
 
 

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_elements_errors.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/14 16:00:36 by mokhames          #+#    #+#             */
+/*   Updated: 2021/01/15 18:34:57 by mokhames         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../Headers/cube3d.h"
 
-int	check_west_and_east()
+int		check_west_and_east(void)
 {
 	if (map.el.elem[map.el.west_line][0] != 'W' ||
 		map.el.elem[map.el.west_line][1] != 'E')
@@ -19,7 +31,7 @@ int	check_west_and_east()
 	return (1);
 }
 
-int	check_north_and_south()
+int		check_north_and_south(void)
 {
 	if (map.el.elem[map.el.north_line][0] != 'N' ||
 		map.el.elem[map.el.north_line][1] != 'O')
@@ -38,7 +50,7 @@ int	check_north_and_south()
 	return (1);
 }
 
-int	check_path(char *str)
+int		check_path(char *str)
 {
 	int i;
 
@@ -56,7 +68,7 @@ int	check_path(char *str)
 	return (1);
 }
 
-int	check_resolution()
+int		check_resolution(void)
 {
 	if (map.el.elem[map.el.resolution_line][0] != 'R')
 	{
@@ -77,7 +89,8 @@ int	check_resolution()
 		map.el.res_y = 1440;
 	return (1);
 }
-int	check_elements_errors()
+
+int		check_elements_errors(void)
 {
 	if (check_north_and_south() < 0)
 		return (-1);

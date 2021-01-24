@@ -1,6 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/15 18:32:24 by mokhames          #+#    #+#             */
+/*   Updated: 2021/01/24 08:15:06 by mokhames         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../Headers/cube3d.h"
-
-
 
 int		get_position2(int i, int j)
 {
@@ -15,11 +25,11 @@ int		get_position2(int i, int j)
 		map.parser->grid[i][j] = '0';
 	}
 	if (map.parser->grid[i][j] == '2')
-		map.spr.numsprites += 1;
+		map.numsprites += 1;
 	return (1);
 }
 
-int		get_position()
+int		get_position(void)
 {
 	int i;
 	int j;
@@ -40,7 +50,7 @@ int		get_position()
 	return (1);
 }
 
-int		create_map()
+int		create_map(void)
 {
 	if (!(map.parser->grid = ft_split(map.parser->map_string, '\n')))
 		return (-1);
@@ -50,6 +60,5 @@ int		create_map()
 		return (-1);
 	if (check_borders_columns() < 0)
 		return (-1);
-      
 	return (1);
 }

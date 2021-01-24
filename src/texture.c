@@ -2,42 +2,42 @@
 
 int		create_images2()
 {
-	if (!(map.tex.color_e = mlx_xpm_file_to_image(mlx.mlx_ptr, map.el.e_path,
-		&map.tex.texwidth, &map.tex.texheight)))
+	if (!(map.tex1[3].color = mlx_xpm_file_to_image(mlx.mlx_ptr, map.el.e_path,
+		&map.tex1[3].texwidth, &map.tex1[3].texheight)))
 	{
 		write(1, "Error\n", 6);
 		write(1, "e wrong path texture", 20);
 		//exit_all();
 		return (exit_all());
 	}
-	if (!(map.spr.spr_tex = mlx_xpm_file_to_image(mlx.mlx_ptr, map.el.spr_path,
-		&map.spr.sprwidth, &map.spr.sprheight)))
+	 /*if (!(map.tex1[4].color = mlx_xpm_file_to_image(mlx.mlx_ptr, map.el.spr_path,
+		&map.tex1[4].texwidth, &map.tex1[4].texheight)))
 	{
 		write(1, "Error\n", 6);
 		write(1, "texture of the sprite is wrong", 30);
 		return (exit_all());
-	}
+	}*/
 	return (1);
 }
 
 int		create_images1()
 {
-	if (!(map.tex.color_n = mlx_xpm_file_to_image(mlx.mlx_ptr, map.el.n_path,
-		&map.tex.texwidth, &map.tex.texwidth)))
+	if (!(map.tex1[0].color = mlx_xpm_file_to_image(mlx.mlx_ptr, map.el.n_path,
+		&map.tex1[0].texwidth, &map.tex1[0].texheight)))
 	{
-		write(1, "Error\n", 6);
+		 write(1, "Error\n", 6);
 		write(1, "n wrong path texture\n", 20);
 		return (exit_all());
 	}
-	if (!(map.tex.color_s = mlx_xpm_file_to_image(mlx.mlx_ptr, map.el.s_path,
-		&map.tex.texwidth, &map.tex.texheight)))
+	if (!(map.tex1[1].color = mlx_xpm_file_to_image(mlx.mlx_ptr, map.el.s_path,
+		&map.tex1[1].texwidth, &map.tex1[1].texheight)))
 	{
 		write(1, "Error\n", 6);
 		write(1, "s wrong path texture", 20);
 		return (exit_all());
 	}
-	if (!(map.tex.color_w = mlx_xpm_file_to_image(mlx.mlx_ptr, map.el.w_path,
-		&map.tex.texwidth, &map.tex.texheight)))
+	if (!(map.tex1[2].color = mlx_xpm_file_to_image(mlx.mlx_ptr, map.el.w_path,
+		&map.tex1[2].texwidth, &map.tex1[2].texheight)))
 	{
 		write(1, "Error\n", 6);
 		write(1, "w wrong path texture", 20);
@@ -46,7 +46,7 @@ int		create_images1()
 	return (1);
 }
 
-void	initialize_texture()
+int	initialize_texture()
 {
 	void	*text_n;
 	void	*text_s;
@@ -55,26 +55,15 @@ void	initialize_texture()
     create_images1();
     create_images2();
 
-map.tex.color_n = (int*)mlx_get_data_addr(map.tex.color_n,
+map.tex1[0].color = (int*)mlx_get_data_addr(map.tex1[0].color,
 		&img.bpp, &img.size_l, &img.bpp);
-	map.tex.color_s = (int*)mlx_get_data_addr(map.tex.color_s,
+	map.tex1[1].color = (int*)mlx_get_data_addr(map.tex1[1].color,
 		&img.bpp, &img.size_l, &img.bpp);
-	map.tex.color_w = (int*)mlx_get_data_addr(map.tex.color_w,
+	map.tex1[2].color = (int*)mlx_get_data_addr(map.tex1[2].color,
 		&img.bpp, &img.size_l, &img.bpp);
-	map.tex.color_e = (int*)mlx_get_data_addr(map.tex.color_e,
+	map.tex1[3].color = (int*)mlx_get_data_addr(map.tex1[3].color,
 		&img.bpp, &img.size_l, &img.bpp);
-	map.spr.spr_tex = (int*)mlx_get_data_addr(map.spr.spr_tex,
-		&img.bpp, &img.size_l, &img.bpp);
-
+ // map.tex1[4].color = (int*)mlx_get_data_addr(map.tex1[4].color,
+	//	&img.bpp, &img.size_l, &img.bpp); 
+	return 1;
 }
-
-
-/*int		generate_textures()
-{
-	if (create_images1() < 0)
-		return (exit_all());
-	if (create_images2() < 0)
-		return (exit_all());
-	
-	return (0);
-}*/

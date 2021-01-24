@@ -1,5 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_texture.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/15 18:02:21 by mokhames          #+#    #+#             */
+/*   Updated: 2021/01/15 18:02:55 by mokhames         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../Headers/cube3d.h"
-char	*get_east_texture()
+
+char	*get_east_texture(void)
 {
 	int	i;
 	int	j;
@@ -27,7 +40,7 @@ char	*get_east_texture()
 	return ("");
 }
 
-char	*get_west_texture()
+char	*get_west_texture(void)
 {
 	int	i;
 	int	j;
@@ -55,7 +68,7 @@ char	*get_west_texture()
 	return ("");
 }
 
-char	*get_south_texture()
+char	*get_south_texture(void)
 {
 	int	i;
 	int	j;
@@ -83,7 +96,7 @@ char	*get_south_texture()
 	return ("");
 }
 
-char	*get_north_texture()
+char	*get_north_texture(void)
 {
 	int	i;
 	int	j;
@@ -111,7 +124,7 @@ char	*get_north_texture()
 	return ("");
 }
 
-char	*get_sprite_texture()
+char	*get_sprite_texture(void)
 {
 	int	i;
 	int	j;

@@ -1,35 +1,38 @@
 #ifndef FT_SPRITE_H
-# define FT_SPRITE_H
+#define FT_SPRITE_H
 #include "cube3d.h"
 
-typedef struct		s_spr
+typedef struct s_spr
 {
-	int		numsprites;
-	void	*spr_tex;
-	int		*color;
-	int		sprwidth;
-	int		sprheight;
-	float	spritex;
-	float	spritey;
-	float	invdet;
-	float	transformx;
-	float	transformy;
-	int		spritescreenx;
-	int		drawstarty;
-	int		drawendy;
-	int		drawstartx;
-	int		drawendx;
-	int		stripe;
-	int		texx;
-	int		texy;
-	float	*zbuffer;
-	float	*sprites_x;
-	float	*sprites_y;
-	float	spritedistance;
-	int		vmovescreen;
-	
+	float x;
+	float y;
+	float distance;
+	void	*ptr;
+	int		*data;
+	float 	dist2;
 
-}					t_spr;
-void	free_spr();
-int		get_sprites();
+} t_spr;
+
+typedef struct s_utils
+{
+	int x_star;
+	int y_star;
+	int x_end;
+	int y_end;
+	int height;
+
+} t_utils;
+
+float verhitsprites_x;
+float verhitsprites_y;
+float horzhitsprites_x;
+float horzhitsprites_y;
+int is_vertical;
+void free_spr();
+int get_sprites();
+void init_spr();
+void draw_sprit(int x);
+void render_sprites(float x, float y, int id);
+void render_w_s(int i);
+void	ft_sprite(void);
 #endif

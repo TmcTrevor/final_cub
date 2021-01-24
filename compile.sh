@@ -1,0 +1,1 @@
+gcc src/*.c GNL/*.c src/parse/*.c libft/*.c libftprintf.a libmlx.a libmlx_Linux.a -lm -lX11 -lXext -fsanitize=address

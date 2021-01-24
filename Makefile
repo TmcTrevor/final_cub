@@ -16,10 +16,10 @@ FLAGS = -Wall -Wextra -Werror -g
 all : $(NAME)
 
 $(NAME) : ${OBJS}
-		gcc   -I /usr/local/include -o $(NAME) ${OBJS} -L /usr/local/lib -lmlx -framework Opengl -framework AppKit libftprintf.a -fsanitize=address
-	
+	@	gcc   -I /usr/local/include -o $(NAME) ${OBJS} -L /usr/local/lib -lmlx -framework Opengl -framework AppKit 
+	 
 .c.o : ${SRCS}
-		gcc  -c ${INCL} $< -o ${<:.c=.o}
+	@	gcc   -c ${INCL} $< -o ${<:.c=.o}
 clean :
 		rm -f ${OBJS}
 fclean : clean

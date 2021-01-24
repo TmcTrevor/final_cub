@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/24 11:26:12 by mokhames          #+#    #+#             */
+/*   Updated: 2021/01/24 11:26:56 by mokhames         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Headers/cube3d.h"
 
-void	free_paths()
+void	free_paths(void)
 {
 	if (map.el.n_path)
 	{
@@ -24,7 +36,7 @@ void	free_paths()
 	}
 }
 
-void	free_elem()
+void	free_elem(void)
 {
 	int i;
 
@@ -47,42 +59,37 @@ void	free_elem()
 	}
 }
 
-void	free_map()
-{
-	int i;
-
-	i = -1;
-	if (map.parser->grid)
-	{
-		while (++i < map.parser->line_nbr)
-		{
-			free(map.parser->grid[i]);
-			map.parser->grid[i] = 0;
-		}
-		free(map.parser->grid);
-		map.parser->grid = 0;
-	}
-	free(map.parser->map_string);
-	map.parser->map_string = 0;
-}
-
-void	free_win()
+void	free_win(void)
 {
 	if (mlx.mlx_ptr && mlx.win)
 		mlx_destroy_window(mlx.mlx_ptr, mlx.win);
 }
 
-void	free_ray()
+void	free_spr(void)
 {
-	free(map.ray);
-	map.ray = 0;
+	int i;
+
+	i = 0;
+	while (i < map.numsprites)
+	{
+		free(map.spr[i]->ptr);
+		map.spr[i]->ptr = 0;
+		free(map.spr[i]->data);
+		map.spr[i]->data = 0;
+		free(map.spr[i]);
+		map.spr[i] = 0;
+		i++;
+	}
+	free(map.spr);
+	map.spr = 0;
 }
-int		exit_all()
+
+int		exit_all(void)
 {
 	free_win();
 	free_map();
+	free_parser();
 	free_elem();
-	free_tex();
 	free_spr();
 	free_ray();
 	exit(0);

@@ -1,9 +1,11 @@
 # ifndef FT_RAY_H
 #define FT_RAY_H
 
-#include "vector.h"
+
+#include "sprite.h"
 
 typedef struct s_ray{
+        
         float    posx;
         float    posy;  
         float   len;
@@ -28,28 +30,24 @@ typedef struct s_ray{
         int     verwallhit;
         int     horzwallhit;
         int     wasvertical;
-
-        
+        int     issprite;
      
 }       t_ray;
 
-typedef struct s_ray_sp{
-        t_vector *pos;
-        t_vector *dir;
-        int     offset;
-        int     kind;
-        double   angle;
-        int index;
-        double dist;
-        struct s_sptites *sp;
-        void    (*cast)(void *ray);
-        void    (*render)(struct s_ray_sp *this);
-        double (*length)(struct s_ray_sp *this);
-        void (*update)(struct s_ray_sp *this, t_vector *dir, struct s_sptites *sp);
-        void (*free)(void *item);
-} t_ray_sp;
+typedef struct s_var_ray
+{
+    float xintercept;
+    float yintercept;
+    float xstep;
+    float ystep;
+    float nextx;
+    float nexty;
+    float xtocheck;
+    float ytocheck;
+}              t_var_ray;
 
-t_ray *new_ray(t_vector *pos, double angle, int i);
+
+
 void    init_ray();
 void    project_wall();
 float    ft_line( int x, int y, int size ,float angle, int color);
@@ -61,5 +59,7 @@ float distance(float x,float y, float x1,float y1);
 //float    ft_line( int x, int y, int size ,float angle, int color);
 void  cast_vertical_inter_ray(float angle, int x);
 void    check_distance(int x, float angle);
+void    free_ray(void);
+void    free_map(void);
 
 #endif

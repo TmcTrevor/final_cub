@@ -1,8 +1,7 @@
 #ifndef FT_MAP_H
 # define FT_MAP_H
-#include "vector.h"
+
 #include "player.h"
-#include "array_list.h"
 #include "sprite.h"
 #include "cube3d.h"
 #include "elements.h"
@@ -21,14 +20,8 @@ typedef struct s_parser{
         char            *data;
         char            *map_string;
         char            **grid;
-        char            *map_string_clean;
         int             len;
         
-       // t_map          *g_p;
-        void (*get_lines)(struct s_parser *this);
-        int (*get_fd)(char *filename);
-        void  (*do_final)( struct s_parser *this);
-        void (*free)(void *this);
 }           t_parser;
 
 
@@ -39,24 +32,23 @@ typedef struct s_map
     int         WIN_WIDTH;
     int         WIN_HEIGHT;
     int         fd;
-    char        *line;
     double      w;
     double      h;
     int         wall_height;
     int         wall_width;
-
+    int         numsprites;
 
     float       distanceProjPlane;
     
     t_player    player;
-    t_array_list errors;
-    t_array_list walls;
+ 
     t_parser    *parser;
-    t_spr       spr;
+    t_spr       **spr;
     t_elements  el;
     t_tex       tex;
     t_ray       *ray;
-
+    t_utils     util;
+    t_tex1      tex1[5];
    
     //t_array_list walls;
 
@@ -65,21 +57,10 @@ typedef struct s_map
 }               t_map;
 
 
-
-typedef struct s_wall{
-        t_vector  *pos;
-        t_vector  *dir;
-        int     kind;
-}               t_wall;
-
-void new_map(t_map *map, char *file_name);
-t_wall *new_wall(t_vector *pos , t_vector *dir, int angle);
-
-t_bool check_empty_line(char *line);
+int new_map(char **argv, int argc);
 void get_lines(t_parser *this);
 int get_fd(char *filename);
-
-void new_parser(t_parser *this, char *filename , t_map *g_p);
+int new_parser(char **argv, int argc);
 ///////// parser check//////
 int		parse_main();
 int             parse_line(int fd);
@@ -92,12 +73,13 @@ int             get_elements();
 int             exit_all();
 int             draw_map();
 int             ft_key();
-//oid  parser_do_final(t_parser *this);
-//void   free_parser(void *this);
-//void sprite_tex_parser(char *line);
+int     screen_shot();
 float	normalize_angle(float angle);
-//int     is_wall2(int a, int b);
 int     is_wall2(float a, float b, char c);
+int     check_map_errors();
+int		check_map_errors();
+int		return_error_exit(void);
+void	free_parser();
 
 #endif
 

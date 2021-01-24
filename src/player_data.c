@@ -3,7 +3,7 @@ void	data_e_w()
 {
 	if (map.parser->dir == 'E')
 	{
-		map.player.rotation_angle =  2 * M_PI / 3;
+		map.player.rotation_angle =  2 * M_PI / 3 + M_PI / 6;
 		map.player.planex = 0;
 		map.player.planey = 0.66;
 		map.player.dirx = 1;
@@ -56,20 +56,21 @@ int		player_data()
 	map.player.posy_p = map.player.posy * map.wall_height;
 	map.player.posx_p += map.wall_width  / 2;
 	map.player.posy_p += map.wall_height /2;
-	printf("x = %f \ny= %f\n",map.player.posx_p,map.player.posy_p);
+
 	//map.tex.texwidth = map.wall_width / 0.2;
 	//map.tex.texheight = map.wall_height / 0.2;
-	map.spr.sprwidth = 0;
-	map.spr.sprheight = 0;
+	
 	map.player.mov_speed = 30;
 
 	map.player.rotation_speed = 2 * (M_PI / 180);
 	map.el.wsw = 1;
 	map.el.nb_rays = map.el.res_x / map.el.wsw;
-	map.distanceProjPlane = (map.el.res_x / 2)  / tan(M_PI /6);
+	map.distanceProjPlane = (map.el.res_x / 2)  / tan(FOV_ANGLE/ 2);
 	init_ray();
+	init_spr();
 	
-	if (!(map.spr.zbuffer = malloc(sizeof(float *) * map.el.res_x + 1)))
-		return (exit_all());
+
+	
+	
 	return (1);
 }

@@ -1,37 +1,48 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_map_elements.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/15 17:58:41 by mokhames          #+#    #+#             */
+/*   Updated: 2021/01/15 18:35:54 by mokhames         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../Headers/cube3d.h"
 
-int 	error()
+int		error(void)
 {
-	ft_printf("wrong argument in resolution line");
-	return exit_all();
+	printf("wrong argument in resolution line");
+	return (exit_all());
 }
-int     get_resolution(char *c)
+
+int		get_resolution(char *c)
 {
 	int i;
-	
+
 	i = 1;
-     if (*c == 'R')
-    {
-        c++;
-		while(c[i] == ' ')
+	if (*c == 'R')
+	{
+		c++;
+		while (c[i] == ' ')
 			i++;
-        if(*c == '\0' || !(isdigit(c[i])))
+		if (*c == '\0' || !(isdigit(c[i])))
 			return (error());
-        map.el.res_x = ft_atoi(c);
-        while (*c == ' ')
-             c++;
-        while (ft_isdigit(*c))
-                 c++;
-       // WIN_HEIGHT = ft_atoi( c);
-	   i = 1;
-	   while(c[i] == ' ')
+		map.el.res_x = ft_atoi(c);
+		while (*c == ' ')
+			c++;
+		while (ft_isdigit(*c))
+			c++;
+		i = 1;
+		while (c[i] == ' ')
 			i++;
-        if(*c == '\0' || !(isdigit(c[i])))
+		if (*c == '\0' || !(isdigit(c[i])))
 			return (error());
-        map.el.res_y = ft_atoi(c);
-        //ft_printf("3 =  %d",map->WIN_WIDTH);
-    }
-	return 1;
+		map.el.res_y = ft_atoi(c);
+	}
+	return (1);
 }
 
 int		check_letters(int i, int j)
@@ -57,9 +68,10 @@ int		check_letters(int i, int j)
 		map.el.c_l = i;
 	return (1);
 }
-int     create_elements_lines()
+
+int		create_elements_lines(void)
 {
-    int i;
+	int i;
 	int j;
 
 	i = 0;
@@ -77,9 +89,9 @@ int     create_elements_lines()
 	return (1);
 }
 
-int get_elements()
+int		get_elements(void)
 {
-    map.el.elem = ft_split(map.parser->data, '\n');
+	map.el.elem = ft_split(map.parser->data, '\n');
 	if (create_elements_lines() < 0)
 		return (-1);
 	if (get_resolution(map.el.elem[map.el.resolution_line]) < 0)
@@ -99,7 +111,5 @@ int get_elements()
 		return (-1);
 	if (!get_east_texture())
 		return (-1);
-	//printf(" ---North %s\n",map.el.n_path);
-	
 	return (1);
 }

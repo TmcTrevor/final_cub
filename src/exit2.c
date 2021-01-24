@@ -1,44 +1,44 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit2.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/24 10:25:59 by mokhames          #+#    #+#             */
+/*   Updated: 2021/01/24 11:28:07 by mokhames         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Headers/cube3d.h"
 
-void	free_spr()
+void	free_parser(void)
 {
-	if (map.spr.zbuffer)
-	{
-		free(map.spr.zbuffer);
-		map.spr.zbuffer = 0;
-	}
-	if (map.spr.sprites_x)
-	{
-		free(map.spr.sprites_x);
-		map.spr.sprites_x = 0;
-	}
-	if (map.spr.sprites_y)
-	{
-		free(map.spr.sprites_y);
-		map.spr.sprites_y = 0;
-	}
+	free(map.parser);
+	map.parser = 0;
 }
 
-void	free_tex()
+void	free_ray(void)
 {
-	if (map.tex.color_n)
+	free(map.ray);
+	map.ray = 0;
+}
+
+void	free_map(void)
+{
+	int i;
+
+	i = -1;
+	if (map.parser->grid)
 	{
-		free(map.tex.color_n);
-		map.tex.color_n = 0;
+		while (++i < map.parser->line_nbr)
+		{
+			free(map.parser->grid[i]);
+			map.parser->grid[i] = 0;
+		}
+		free(map.parser->grid);
+		map.parser->grid = 0;
 	}
-	if (map.tex.color_s)
-	{
-		free(map.tex.color_s);
-		map.tex.color_s = 0;
-	}
-	if (map.tex.color_e)
-	{
-		free(map.tex.color_e);
-		map.tex.color_e = 0;
-	}
-	if (map.tex.color_w)
-	{
-		free(map.tex.color_w);
-		map.tex.color_w = 0;
-	}
+	free(map.parser->map_string);
+	map.parser->map_string = 0;
 }

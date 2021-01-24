@@ -1,70 +1,60 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/16 14:32:28 by mokhames          #+#    #+#             */
+/*   Updated: 2021/01/24 10:24:17 by mokhames         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Headers/cube3d.h"
 
-static void		*ft_memalloc(size_t size)
+int		start_game(void)
 {
-	void	*mem;
-
-	if (!(mem = malloc(size)))
-		return (NULL);
-	ft_bzero(mem, size);
-	return (mem);
-}
-int 	update(int key)
-{return 1;}
-
-
-
-int	start_game()
-{
- 	init_struct();
-	if(parse_main() < 0)
-		return -1;
+	init_struct();
+	if (parse_main() < 0)
+		return (-1);
 	if (!(mlx.mlx_ptr = mlx_init()))
-		return -1;
+		return (-1);
 	player_data();
-//	printf("2 ----- %f\n",map.player.rotation_speed);
 	mlx.win = mlx_new_window(mlx.mlx_ptr, map.el.res_x, map.el.res_y, "TreVor");
 	img.img_ptr = mlx_new_image(mlx.mlx_ptr, map.el.res_x, map.el.res_y);
 	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp,
 		&img.size_l, &img.endian);
-	//ft_printf("line %d\n",map.parser->line_nbr);
+	initialize_texture();
 	draw_map();
-	//ray_casting();
-	
-	return 1;
- 
+	return (1);
 }
-int		red_button()
-{
-	//mlx_destroy_window(mlx.mlx_ptr,mlx.win);
 
+int		red_button(void)
+{
 	exit_all();
-	return 0;
-
+	return (0);
 }
 
-int	main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
-	
-	//int op = open("map", O_RDONLY);
-	//char *line;
-	//t_map map;
-	//if (!(map = (t_map *)ft_memalloc(sizeof(t_map))))
-	//	return 0;
-
-	q = 0;
-	//img.op = 220;
-    if (argc != 2)
-		exit(1);
-	new_map(&map,argv[1]);
-	 
-	if(start_game() < 0)
+	if (new_map(argv, argc) < 0)
 		exit_all();
-	//mlx.y = 0;
-	mlx_hook(mlx.win,2,1L >> 1, ft_key, (void *) 0);
-	mlx_hook(mlx.win,17,0, red_button, (void *) 0);
-
-	//mlx_loop_hook(mlx.mlx_ptr,xd, (void *) 0);
-	mlx_loop(mlx.mlx_ptr);
+	else if (argc == 2)
+	{
+		if (start_game() < 0)
+			exit_all();
+		mlx_hook(mlx.win, 2, 1L >> 1, ft_key, (void *)0);
+		mlx_hook(mlx.win, 17, 0, red_button, (void *)0);
+		mlx_loop(mlx.mlx_ptr);
+	}
+	else if (argc == 3 && !ft_strncmp(argv[2], "--save", 5))
+	{
+		if (start_game() < 0)
+			return (exit_all());
+		if (screen_shot() < 0)
+			exit_all();
+	}
+	else
+		exit_all();
 	return (0);
 }
