@@ -1,18 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cube3d.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/24 16:09:33 by mokhames          #+#    #+#             */
+/*   Updated: 2021/01/24 18:18:50 by mokhames         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef EXAMPLE_H
 # define EXAMPLE_H
 
 # include <math.h>
 # include "mlx.h"
-#include "../../ft_printf.h"
-#include "fcntl.h"
-#include "map.h"
-#include "player.h"
-
-#include "../../GNL/get_next_line.h"
-
-#include "ray.h"
-#include "sprite.h"
-#include "elements.h"
+# include "../../ft_printf.h"
+# include "fcntl.h"
+# include "map.h"
+# include "player.h"
+# include "../../GNL/get_next_line.h"
+# include "ray.h"
+# include "sprite.h"
+# include "elements.h"
 # define DEFAULT_WINDOW_X 2560
 # define DEFAULT_WINDOW_Y 1395
 # define MAP_GAME "0123NSEW"
@@ -69,89 +79,40 @@
 # define MLXK_TG 12
 # define FOV_ANGLE 1.04719755
 
-/*
- Defines for the width and height of your window. I suggest you to do the same so
- you can change easily the size of your window later if needed.
-*/
-//int	WIN_WIDTH;
- //int	WIN_HEIGHT ;
-//int fd;
-//char *line;
-/*
- Here I built a struct of the MLX image :
- It contains everything you need.
- - img_ptr to store the return value of mlx_new_image
- - data to store the return value of mlx_get_data_addr
- - the 3 other variables are pretty much useless, but you'll need
- them in the prototype of mlx_get_data_addr (see the man page for that)
- */
-
-
-/*typedef struct s_player 
-{
-	float x;
-	float y;
-	float radius;
-	float turn_direction;
-	float run_direction;
-	float rotate_angle;
-	float movement_speed;
-	float rotation_speed;
-	float 
-
-
-}		t_player;*/
-
 typedef struct	s_img
 {
 	void		*img_ptr;
-	int			*data; //Here you got an int * even though mlx_get_data_addr returns
-						//a char *, i'll talk more about this in the .c file.
-//Here are the 3 "useless" variables. You can find more informations about these in the man page.
+	int			*data;
 	int			size_l;
 	int			bpp;
 	int			endian;
 }				t_img;
 
-/*
- Here is my main struct containing every variables needed by the MLX.
- - mlx_ptr stores the return value of mlx_init
- - win stores the return value of mlx_new_window
- - img will store everything we need for the image part, the struct is described above.
- */
 typedef struct	s_mlx
 {
 	void		*mlx_ptr;
 	void		*win;
-;
+
 }				t_mlx;
-void    dimension(t_map *map);
-void    draw(void);
-int     nie(int key,void *p);
-t_mlx	mlx;
-t_img 	img; 
-//t_player *player;
 
-t_player *player;
-t_map map;
+void		dimension(t_map *map);
+void		draw(void);
+int			nie(int key, void *p);
 
+t_mlx	g_mlx;
+t_img 	g_img; 
+t_map	g_map;
 
+int			start_game();
+void		init_struct();
+void		read_map(t_map *map);
 
+void		read_2d_map(t_map *map);
 
-
-int 	start_game();
-void	init_struct();
-void	read_map(t_map *map);
-
-void	read_2d_map(t_map *map);
-
-t_map	*new_game(t_map *map);
-double  normelize_angel(double angle);
-void image_put_pixel(int x, int y, int color);
-void	line(int x0, int y0, int x1, int y1, int color);
-double      ray_len(t_ray *ray);
-
-
-
+t_map		*new_game(t_map *map);
+double		normelize_angel(double angle);
+void		image_put_pixel(int x, int y, int color);
+void		line(int x0, int y0, int x1, int y1, int color);
+double		ray_len(t_ray *ray);
 
 #endif

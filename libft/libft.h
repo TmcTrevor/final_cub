@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mokhames <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 19:20:11 by mokhames          #+#    #+#             */
-/*   Updated: 2019/10/23 13:20:20 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/01/24 19:23:05 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int					ft_tolower(int c);
 int					ft_toupper(int c);
 void				*ft_calloc(size_t count, size_t size);
 char				*ft_substr(char	const *s, unsigned int start, size_t len);
-char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoin(char  *s1, char  *s2);
 char				*ft_strtrim(char const *s1, char const *set);
 char				**ft_split(char const	*s, char c);
 char				*ft_itoa(int c);

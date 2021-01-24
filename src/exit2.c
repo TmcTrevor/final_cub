@@ -6,7 +6,7 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 10:25:59 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/24 11:28:07 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/01/24 19:25:39 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	free_parser(void)
 {
-	free(map.parser);
-	map.parser = 0;
+	free(g_map.parser);
+	g_map.parser = 0;
 }
 
 void	free_ray(void)
 {
-	free(map.ray);
-	map.ray = 0;
+	free(g_map.ray);
+	g_map.ray = 0;
 }
 
 void	free_map(void)
@@ -29,16 +29,16 @@ void	free_map(void)
 	int i;
 
 	i = -1;
-	if (map.parser->grid)
+	if (g_map.parser->grid)
 	{
-		while (++i < map.parser->line_nbr)
+		while (++i < g_map.parser->line_nbr)
 		{
-			free(map.parser->grid[i]);
-			map.parser->grid[i] = 0;
+			free(g_map.parser->grid[i]);
+			g_map.parser->grid[i] = 0;
 		}
-		free(map.parser->grid);
-		map.parser->grid = 0;
+		free(g_map.parser->grid);
+		g_map.parser->grid = 0;
 	}
-	free(map.parser->map_string);
-	map.parser->map_string = 0;
+	free(g_map.parser->map_string);
+	g_map.parser->map_string = 0;
 }

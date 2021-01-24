@@ -6,7 +6,7 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 18:19:25 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/24 10:22:21 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/01/24 19:46:31 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,39 @@ int		write_error_one(void)
 int		parse_map(int fd)
 {
 	char *line;
+	char *tmp;
 
 	line = "";
-	map.parser->map_string = "";
-	while (line[0] == '\0')
-		get_next_line(fd, &line);
-	map.parser->map_string = ft_strjoin(map.parser->map_string, line);
-	map.parser->map_string = ft_strjoin(map.parser->map_string, "\n");
+	g_map.parser->map_string = ft_strdup("");
+	/*while (line[0] == '\0')
+	{	get_next_line(fd, &line);
+		free(line);
+	}
+		tmp = g_map.parser->map_string;
+	g_map.parser->map_string = ft_strjoin(g_map.parser->map_string, line);
+	free(tmp);
+	tmp = g_map.parser->map_string;
+	g_map.parser->map_string = ft_strjoin(g_map.parser->map_string, "\n");
+	free(tmp);*/
 	while (get_next_line(fd, &line))
 	{
 		if (line[0] == '\0')
 			write_error_one();
-		map.parser->map_string = ft_strjoin(map.parser->map_string, line);
-		map.parser->map_string = ft_strjoin(map.parser->map_string, "\n");
+			tmp = g_map.parser->map_string;
+	g_map.parser->map_string = ft_strjoin(g_map.parser->map_string, line);
+	free(tmp);
+	tmp = g_map.parser->map_string;
+	g_map.parser->map_string = ft_strjoin(g_map.parser->map_string, "\n");
+	free(tmp);
 		free(line);
 		line = NULL;
 	}
-	map.parser->map_string = ft_strjoin(map.parser->map_string, line);
-	map.parser->map_string = ft_strjoin(map.parser->map_string, "\0");
+	tmp = g_map.parser->map_string;
+	g_map.parser->map_string = ft_strjoin(g_map.parser->map_string, line);
+	free(tmp);
+	tmp = g_map.parser->map_string;
+	g_map.parser->map_string = ft_strjoin(g_map.parser->map_string, "\0");
+	free(tmp);
 	free(line);
 	line = NULL;
 	return (1);
@@ -56,17 +71,22 @@ int		parse_line(int fd)
 {
 	char	*line;
 	int		i;
+	char	*tmp;
 
 	i = 0;
-	map.parser->data = "";
+	g_map.parser->data = ft_strdup("");
 	while (get_next_line(fd, &line) && i < 7)
 	{
 		if (line[0] == '\0')
 			get_next_line(fd, &line);
 		if (!ft_isdigit(line[0]))
 		{
-			map.parser->data = ft_strjoin(map.parser->data, line);
-			map.parser->data = ft_strjoin(map.parser->data, "\n");
+			tmp = g_map.parser->data;
+			g_map.parser->data = ft_strjoin(g_map.parser->data, line);
+			free(tmp);
+			tmp = g_map.parser->data;
+			g_map.parser->data = ft_strjoin(g_map.parser->data, "\n");
+			free(tmp);
 			free(line);
 			line = NULL;
 			i++;
@@ -74,8 +94,13 @@ int		parse_line(int fd)
 	}
 	while (line[0] == '\0')
 		get_next_line(fd, &line);
-	map.parser->data = ft_strjoin(map.parser->data, line);
-	map.parser->data = ft_strjoin(map.parser->data, "\0");
+	tmp = g_map.parser->data;
+			g_map.parser->data = ft_strjoin(g_map.parser->data, line);
+			free(tmp);
+			tmp = g_map.parser->data;
+			g_map.parser->data = ft_strjoin(g_map.parser->data, "\0");
+			free(tmp);
+			
 	free(line);
 	line = NULL;
 	return (1);
@@ -85,7 +110,7 @@ int		parse_main(void)
 {
 	int fd;
 
-	fd = map.parser->fd;
+	fd = g_map.parser->fd;
 	if (parse_line(fd) < 0)
 		return (-1);
 	if (parse_map(fd) < 0)

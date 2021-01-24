@@ -6,13 +6,11 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 16:24:50 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/16 17:41:00 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/01/24 18:24:58 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Headers/cube3d.h"
-
-
 
 int		write_header(int fd, int tmp, int file_size)
 {
@@ -31,7 +29,7 @@ int		write_header(int fd, int tmp, int file_size)
 	header[19] = (unsigned char)(tmp >> 8);
 	header[20] = (unsigned char)(tmp >> 16);
 	header[21] = (unsigned char)(tmp >> 24);
-	tmp = -map.el.res_y;
+	tmp = -g_map.el.res_y;
 	header[22] = (unsigned char)(tmp);
 	header[23] = (unsigned char)(tmp >> 8);
 	header[24] = (unsigned char)(tmp >> 16);
@@ -42,26 +40,26 @@ int		write_header(int fd, int tmp, int file_size)
 	return (1);
 }
 
-int		write_data(int fd )
+int		write_data(int fd)
 {
 	char *tmp;
 
-	tmp = (char *)img.data;
-	write(fd, tmp, (map.el.res_x * map.el.res_y * 4));
+	tmp = (char *)g_img.data;
+	write(fd, tmp, (g_map.el.res_x * g_map.el.res_y * 4));
 	return (1);
 }
 
-int		screen_shot()
+int		screen_shot(void)
 {
 	int	fd;
 	int	tmp;
 	int	file_size;
 
 	if ((fd = open("screenshot.bmp", O_CREAT | O_RDWR | S_IRWXU)) < 0)
-		return exit_all();
-	tmp = map.el.res_x;
-	file_size = 14 + 40 + (map.el.res_x * map.el.res_y) * 4;
-	if (write_header(fd,tmp, file_size) < 0)
+		return (exit_all());
+	tmp = g_map.el.res_x;
+	file_size = 14 + 40 + (g_map.el.res_x * g_map.el.res_y) * 4;
+	if (write_header(fd, tmp, file_size) < 0)
 		return (exit_all());
 	if (write_data(fd) < 0)
 		exit_all();

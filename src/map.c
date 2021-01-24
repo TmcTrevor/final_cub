@@ -5,23 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/16 14:32:14 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/24 09:35:38 by mokhames         ###   ########.fr       */
+/*   Created: 2021/01/24 18:30:16 by mokhames          #+#    #+#             */
+/*   Updated: 2021/01/24 18:30:17 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Headers/cube3d.h"
-
-
-static void		*ft_memalloc(size_t size)
-{
-	void	*mem;
-
-	if (!(mem = malloc(size)))
-		return (NULL);
-	ft_bzero(mem, size);
-	return (mem);
-}
 
 int		ft_check_ext(char *str)
 {
@@ -29,17 +18,17 @@ int		ft_check_ext(char *str)
 
 	i = ft_strlen(str) - 4;
 	if (ft_strncmp(str + i, ".cub", 5) != 0)
-	{	
+	{
 		write(1, "Error\n", 7);
 		write(1, "file do not end with .cub", 25);
 		return (-1);
-	}	
-	return 1;
+	}
+	return (1);
 }
 
-int new_parser(char **argv,int argc)
+int		new_parser(char **argv, int argc)
 {
-  int fd;
+	int fd;
 
 	if (argc == 1 || argc > 3)
 	{
@@ -51,25 +40,20 @@ int new_parser(char **argv,int argc)
 		write(1, "Error\nInvalid option\n", 21);
 		return (-1);
 	}
-
-	else if ((map.parser->fd = open(argv[1], O_RDONLY)) <= 0)
+	else if ((g_map.parser->fd = open(argv[1], O_RDONLY)) <= 0)
 	{
 		write(1, "Error\nNo such file or directory\n", 32);
 		return (-1);
 	}
 	else if (ft_check_ext(argv[1]) < 0)
-		return -1;
-	//printf("%d\n",map.parser->fd);
+		return (-1);
 	return (1);
 }
 
-int new_map(char **argv, int argc)
+int		new_map(char **argv, int argc)
 {
-   map.parser = (t_parser *)ft_memalloc(sizeof(t_parser));
-   
-   if (new_parser(argv ,argc) < 0 )
-	return (-1);
-   
-   
-   return (1);
+	g_map.parser = (t_parser *)malloc(sizeof(t_parser));
+	if (new_parser(argv, argc) < 0)
+		return (-1);
+	return (1);
 }

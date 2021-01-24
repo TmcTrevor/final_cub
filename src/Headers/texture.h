@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   texture.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/24 18:15:30 by mokhames          #+#    #+#             */
+/*   Updated: 2021/01/24 18:15:31 by mokhames         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_TEXTURE_H
 #define FT_TEXTURE_H
 
@@ -6,11 +18,6 @@ typedef struct		s_tex
 {
 	int		texwidth;
 	int		texheight;
-	/*int		*spr_tex;
-	int		*color_n;
-	int		*color_s;
-	int		*color_e;
-	int		*color_w;*/
 	int		texx;
 	int		texy;
 	float	step;

@@ -1,93 +1,97 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_walls.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/24 15:35:41 by mokhames          #+#    #+#             */
+/*   Updated: 2021/01/24 18:29:24 by mokhames         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Headers/cube3d.h"
-#include "Headers/ray.h"
 
-
-void    render_ceiling(float top, int x)
+void	render_ceiling(float top, int x)
 {
-    int e;
+	int e;
 
-    e = -1;
-    while (++e < top)
+	e = -1;
+	while (++e < top)
+		g_img.data[e * g_map.el.res_x + x] = g_map.el.c_color_hex;
+}
+
+void	render_floor(float bot, int i)
+{
+	while (bot < g_map.el.res_y)
 	{
-		img.data[e * map.el.res_x + x] =  map.el.c_color_hex;
-	   // e++;
-
+		g_img.data[(int)bot * g_map.el.res_x + i] = g_map.el.f_color_hex;
+		bot++;
 	}
 }
-void    render_floor(float bot, int i)
+
+void	render_wall(float bot, float top, int x, int t)
 {
-    while(bot < map.el.res_y)
-    {
-        img.data[(int)bot *  map.el.res_x + i] = map.el.f_color_hex;
-        bot++;    
-    }
-}
-void    render_wall(float bot, float top,int x, float w_height,int t)
-{
-    float texx;
-    float texy;
-    int   y;
-    int color;
+	float	texx;
+	float	texy;
+	int		color;
+	int		distancefromtop;
+	float	w_height;
 
-    y = top;
-    texx = map.ray[x].wasvertical ? map.ray[x].wallhity / map.wall_width :
-        map.ray[x].wallhitx / map.wall_width;
-    texx -= (int)texx;
-    texx *= map.tex1[t].texwidth;
-    while (y < bot)
-    {
-        /*texy = (y - ((map.el.res_y / 2)- (w_height / 2)))
-            * ((float)map.tex1[t].texheight / w_height);*/
-            
-		int distancefromtop = y + (w_height / 2) - (map.el.res_y / 2);
-						texy = distancefromtop * (float)(map.tex1[t].texheight / w_height);
-        color = map.tex1[t].color[(int)texy * map.tex1[t].texwidth + (int)texx];
-        img.data[y * map.el.res_x + x] = color;
-        y++;
-    }
-
-
+	w_height = g_util.wallstripheight;
+	texx = g_map.ray[x].wasvertical ? g_map.ray[x].wallhity / g_map.wall_width :
+		g_map.ray[x].wallhitx / g_map.wall_width;
+	texx -= (int)texx;
+	texx *= g_map.tex1[t].texwidth;
+	while (top < bot)
+	{
+		distancefromtop = top + (w_height / 2) - (g_map.el.res_y / 2);
+		texy = distancefromtop * (float)(g_map.tex1[t].texheight / w_height);
+		color = g_map.tex1[t].color[(int)texy *
+			g_map.tex1[t].texwidth + (int)texx];
+		g_img.data[(int)top * g_map.el.res_x + x] = color;
+		top++;
+	}
 }
 
-int     set_t(int t, int x)
+int		set_t(int t, int x)
 {
-    if(map.ray[x].ray_down && !map.ray[x].wasvertical)
-				t = 0;
-	if(map.ray[x].ray_right && map.ray[x].wasvertical)
-				t = 2;
-	if(map.ray[x].ray_left && map.ray[x].wasvertical)
-				t = 3;
-    else
-        t = 1;
-    return (t);
+	if (g_map.ray[x].ray_down && !g_map.ray[x].wasvertical)
+		t = 0;
+	else if (g_map.ray[x].ray_right && g_map.ray[x].wasvertical)
+		t = 2;
+	else if (g_map.ray[x].ray_left && g_map.ray[x].wasvertical)
+		t = 3;
+	else if (g_map.ray[x].ray_up && !g_map.ray[x].wasvertical)
+		t = 1;
+	return (t);
 }
-void    project_wall()
-{
-    float wallstripheight;
-    float wallTopPixel;
-    float wallbottomPixel;
-    float len;
-    int x;
-    int t;
-    
-    x = 0;
-    t = 1;
-    while (x <= map.el.nb_rays - 2)
-    {
-        len = map.ray[x].distance * cos(normalize_angle(map.ray[x].angle - map.player.rotation_angle - (M_PI / 6)));
-		wallstripheight = floor((map.wall_height / len) * map.distanceProjPlane);
-        wallTopPixel = (map.el.res_y / 2) - (wallstripheight / 2);
-		wallTopPixel = (wallTopPixel < 0) ? 0 : wallTopPixel;
-		wallbottomPixel = (map.el.res_y / 2) + (wallstripheight / 2);
-		wallbottomPixel = (wallbottomPixel > map.el.res_y) ? map.el.res_y : wallbottomPixel;
-       render_ceiling(wallTopPixel,x);
-        t = set_t(t,x);
-        //printf("%d\n",t);
-        render_wall(wallbottomPixel,wallTopPixel,x,wallstripheight,t);
-        render_floor(wallbottomPixel,x);
-        
-        x++;
-    }
-    ft_sprite();
 
+void	project_wall(void)
+{
+	float	walltoppixel;
+	float	wallbottompixel;
+	float	len;
+	int		x;
+	int		t;
+
+	x = 0;
+	t = 1;
+	while (x <= g_map.el.nb_rays - 2)
+	{
+		len = g_map.ray[x].distance * cos(normalize_angle(g_map.ray[x].angle -
+			g_map.player.rotation_angle - (M_PI / 6)));
+		g_util.wallstripheight = floor((g_map.wall_height / len) *
+			g_map.distanceProjPlane);
+		walltoppixel = (g_map.el.res_y / 2) - (g_util.wallstripheight / 2);
+		walltoppixel = (walltoppixel < 0) ? 0 : walltoppixel;
+		wallbottompixel = (g_map.el.res_y / 2) + (g_util.wallstripheight / 2);
+		wallbottompixel = (wallbottompixel > g_map.el.res_y) ?
+			g_map.el.res_y : wallbottompixel;
+		render_ceiling(walltoppixel, x);
+		t = set_t(t, x);
+		render_wall(wallbottompixel, walltoppixel, x, t);
+		render_floor(wallbottompixel, x);
+		x++;
+	}
 }

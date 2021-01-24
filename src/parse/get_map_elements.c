@@ -6,7 +6,7 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 17:58:41 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/15 18:35:54 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/01/24 19:12:30 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		get_resolution(char *c)
 			i++;
 		if (*c == '\0' || !(isdigit(c[i])))
 			return (error());
-		map.el.res_x = ft_atoi(c);
+		g_map.el.res_x = ft_atoi(c);
 		while (*c == ' ')
 			c++;
 		while (ft_isdigit(*c))
@@ -40,32 +40,32 @@ int		get_resolution(char *c)
 			i++;
 		if (*c == '\0' || !(isdigit(c[i])))
 			return (error());
-		map.el.res_y = ft_atoi(c);
+		g_map.el.res_y = ft_atoi(c);
 	}
 	return (1);
 }
 
 int		check_letters(int i, int j)
 {
-	if (map.el.elem[i][j] == 'R')
-		map.el.resolution_line = i;
-	if (map.el.elem[i][j] == 'N')
-		map.el.north_line = i;
-	if (map.el.elem[i][j] == 'S')
+	if (g_map.el.elem[i][j] == 'R')
+		g_map.el.resolution_line = i;
+	if (g_map.el.elem[i][j] == 'N')
+		g_map.el.north_line = i;
+	if (g_map.el.elem[i][j] == 'S')
 	{
-		if (map.el.elem[i][j + 1] == 'O')
-			map.el.south_line = i;
+		if (g_map.el.elem[i][j + 1] == 'O')
+			g_map.el.south_line = i;
 		else
-			map.el.sprite_line = i;
+			g_map.el.sprite_line = i;
 	}
-	if (map.el.elem[i][j] == 'W')
-		map.el.west_line = i;
-	if (map.el.elem[i][j] == 'E')
-		map.el.east_line = i;
-	if (map.el.elem[i][j] == 'F')
-		map.el.f_l = i;
-	if (map.el.elem[i][j] == 'C')
-		map.el.c_l = i;
+	if (g_map.el.elem[i][j] == 'W')
+		g_map.el.west_line = i;
+	if (g_map.el.elem[i][j] == 'E')
+		g_map.el.east_line = i;
+	if (g_map.el.elem[i][j] == 'F')
+		g_map.el.f_l = i;
+	if (g_map.el.elem[i][j] == 'C')
+		g_map.el.c_l = i;
 	return (1);
 }
 
@@ -75,10 +75,10 @@ int		create_elements_lines(void)
 	int j;
 
 	i = 0;
-	while (map.el.elem[i] != NULL)
+	while (g_map.el.elem[i] != NULL)
 	{
 		j = 0;
-		while (map.el.elem[i][j] != '\0')
+		while (g_map.el.elem[i][j] != '\0')
 		{
 			if (check_letters(i, j) < 0)
 				return (-1);
@@ -91,10 +91,10 @@ int		create_elements_lines(void)
 
 int		get_elements(void)
 {
-	map.el.elem = ft_split(map.parser->data, '\n');
+	g_map.el.elem = ft_split(g_map.parser->data, '\n');
 	if (create_elements_lines() < 0)
 		return (-1);
-	if (get_resolution(map.el.elem[map.el.resolution_line]) < 0)
+	if (get_resolution(g_map.el.elem[g_map.el.resolution_line]) < 0)
 		return (-1);
 	if (get_floor_color() < 0)
 		return (-1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   borders.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mokhames <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 15:55:07 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/14 15:55:12 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/01/24 18:19:46 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,19 @@ int		check_borders_columns(void)
 	int j;
 
 	i = 0;
-	while (map.parser->grid[i] != NULL)
+	while (g_map.parser->grid[i] != NULL)
 	{
 		j = 0;
-		while (map.parser->grid[i][j] != '\0')
+		while (g_map.parser->grid[i][j] != '\0')
 			j++;
-		if (map.parser->grid[i][j - 1] != '1')
+		if (g_map.parser->grid[i][j - 1] != '1')
 			return_error_exit();
 		i++;
 	}
 	i = 0;
-	while (map.parser->grid[i] != NULL)
+	while (g_map.parser->grid[i] != NULL)
 	{
-		if (map.parser->grid[i][0] != '1' && map.parser->grid[i][0] != ' ')
+		if (g_map.parser->grid[i][0] != '1' && g_map.parser->grid[i][0] != ' ')
 			return_error_exit();
 		i++;
 	}
@@ -49,17 +49,17 @@ int		check_borders_lines(void)
 	int i;
 
 	i = 0;
-	while (map.parser->grid[0][i] != '\0')
+	while (g_map.parser->grid[0][i] != '\0')
 	{
-		if (map.parser->grid[0][i] != '1' && map.parser->grid[0][i] != ' ')
+		if (g_map.parser->grid[0][i] != '1' && g_map.parser->grid[0][i] != ' ')
 			return_error_exit();
 		i++;
 	}
 	i = 0;
-	while (map.parser->grid[map.parser->line_nbr - 1][i] != '\0')
+	while (g_map.parser->grid[g_map.parser->line_nbr - 1][i] != '\0')
 	{
-		if ((map.parser->grid[map.parser->line_nbr - 1][i] != '1') &&
-			(map.parser->grid[map.parser->line_nbr - 1][i] != ' '))
+		if ((g_map.parser->grid[g_map.parser->line_nbr - 1][i] != '1') &&
+			(g_map.parser->grid[g_map.parser->line_nbr - 1][i] != ' '))
 			return_error_exit();
 		i++;
 	}

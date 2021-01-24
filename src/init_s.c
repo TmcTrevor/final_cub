@@ -6,7 +6,7 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 11:29:15 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/24 12:43:12 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/01/24 18:24:52 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,29 @@
 
 void	init_mlx(void)
 {
-	mlx.mlx_ptr = NULL;
-	mlx.win = NULL;
+	g_mlx.mlx_ptr = NULL;
+	g_mlx.win = NULL;
 }
 
 void	init_image(void)
 {
-	img.img_ptr = NULL;
-	img.data = NULL;
-	img.bpp = 0;
-	img.size_l = 0;
-	img.endian = 0;
+	g_img.img_ptr = NULL;
+	g_img.data = NULL;
+	g_img.bpp = 0;
+	g_img.size_l = 0;
+	g_img.endian = 0;
 }
 
 void	init_parser(void)
 {
-	map.parser->data = NULL;
-	map.parser->map_string = NULL;
-	map.parser->grid = NULL;
-	map.parser->line_nbr = 0;
-	map.parser->column_nbr = 0;
-	map.parser->pos_x_init = 0;
-	map.parser->pos_y_init = 0;
-	map.parser->dir = 0;
+	g_map.parser->data = NULL;
+	g_map.parser->map_string = NULL;
+	g_map.parser->grid = NULL;
+	g_map.parser->line_nbr = 0;
+	g_map.parser->column_nbr = 0;
+	g_map.parser->pos_x_init = 0;
+	g_map.parser->pos_y_init = 0;
+	g_map.parser->dir = 0;
 }
 
 void	reset_ray2(void)
@@ -44,19 +44,19 @@ void	reset_ray2(void)
 	int x;
 
 	x = 0;
-	while (x < map.el.nb_rays)
+	while (x < g_map.el.nb_rays)
 	{
-		map.ray[x].len = 0;
-		map.ray[x].posx = map.player.posx_p;
-		map.ray[x].posy = map.player.posy_p;
-		map.ray[x].angle = 0;
-		map.ray[x].wallstripheight = 0;
-		map.ray[x].ray_down = 0;
-		map.ray[x].ray_up = 0;
-		map.ray[x].ray_right = 0;
-		map.ray[x].ray_left = 0;
-		map.ray[x].horzwallhit = 0;
-		map.ray[x].verwallhit = 0;
+		g_map.ray[x].len = 0;
+		g_map.ray[x].posx = g_map.player.posx_p;
+		g_map.ray[x].posy = g_map.player.posy_p;
+		g_map.ray[x].angle = 0;
+		g_map.ray[x].wallstripheight = 0;
+		g_map.ray[x].ray_down = 0;
+		g_map.ray[x].ray_up = 0;
+		g_map.ray[x].ray_right = 0;
+		g_map.ray[x].ray_left = 0;
+		g_map.ray[x].horzwallhit = 0;
+		g_map.ray[x].verwallhit = 0;
 		x++;
 	}
 }
@@ -66,8 +66,8 @@ void	init_struct(void)
 	init_mlx();
 	init_image();
 	init_parser();
-	map.player.w_dir = 0;
-	map.player.w_dir = 0;
-	map.player.t_dir = 0;
-	map.player.t_dir = 0;
+	g_map.player.w_dir = 0;
+	g_map.player.w_dir = 0;
+	g_map.player.t_dir = 0;
+	g_map.player.t_dir = 0;
 }

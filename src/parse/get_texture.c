@@ -6,7 +6,7 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 18:02:21 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/15 18:02:55 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/01/24 18:20:26 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,23 @@ char	*get_east_texture(void)
 
 	i = 2;
 	count = 0;
-	while (map.el.elem[map.el.east_line][i] == ' ')
+	while (g_map.el.elem[g_map.el.east_line][i] == ' ')
 		i++;
 	j = i;
 	i = i - 1;
-	while (map.el.elem[map.el.east_line][i++] != '\0')
+	while (g_map.el.elem[g_map.el.east_line][i++] != '\0')
 		count++;
 	i = j;
 	j = 0;
-	if (!(map.el.e_path = malloc(sizeof(char) * count + 1)))
+	if (!(g_map.el.e_path = malloc(sizeof(char) * count + 1)))
 		return (NULL);
-	while (map.el.elem[map.el.east_line][i] != '\0')
+	while (g_map.el.elem[g_map.el.east_line][i] != '\0')
 	{
-		map.el.e_path[j] = map.el.elem[map.el.east_line][i];
+		g_map.el.e_path[j] = g_map.el.elem[g_map.el.east_line][i];
 		i++;
 		j++;
 	}
-	map.el.e_path[j] = '\0';
+	g_map.el.e_path[j] = '\0';
 	return ("");
 }
 
@@ -48,23 +48,23 @@ char	*get_west_texture(void)
 
 	i = 2;
 	count = 0;
-	while (map.el.elem[map.el.west_line][i] == ' ')
+	while (g_map.el.elem[g_map.el.west_line][i] == ' ')
 		i++;
 	j = i;
 	i = i - 1;
-	while (map.el.elem[map.el.west_line][i++] != '\0')
+	while (g_map.el.elem[g_map.el.west_line][i++] != '\0')
 		count++;
 	i = j;
 	j = 0;
-	if (!(map.el.w_path = malloc(sizeof(char) * count + 1)))
+	if (!(g_map.el.w_path = malloc(sizeof(char) * count + 1)))
 		return (NULL);
-	while (map.el.elem[map.el.west_line][i] != '\0')
+	while (g_map.el.elem[g_map.el.west_line][i] != '\0')
 	{
-		map.el.w_path[j] = map.el.elem[map.el.west_line][i];
+		g_map.el.w_path[j] = g_map.el.elem[g_map.el.west_line][i];
 		i++;
 		j++;
 	}
-	map.el.w_path[j] = '\0';
+	g_map.el.w_path[j] = '\0';
 	return ("");
 }
 
@@ -76,23 +76,23 @@ char	*get_south_texture(void)
 
 	i = 2;
 	count = 0;
-	while (map.el.elem[map.el.south_line][i] == ' ')
+	while (g_map.el.elem[g_map.el.south_line][i] == ' ')
 		i++;
 	j = i;
 	i = i - 1;
-	while (map.el.elem[map.el.south_line][i++] != '\0')
+	while (g_map.el.elem[g_map.el.south_line][i++] != '\0')
 		count++;
 	i = j;
 	j = 0;
-	if (!(map.el.s_path = malloc(sizeof(char) * count + 1)))
+	if (!(g_map.el.s_path = malloc(sizeof(char) * count + 1)))
 		return (NULL);
-	while (map.el.elem[map.el.south_line][i] != '\0')
+	while (g_map.el.elem[g_map.el.south_line][i] != '\0')
 	{
-		map.el.s_path[j] = map.el.elem[map.el.south_line][i];
+		g_map.el.s_path[j] = g_map.el.elem[g_map.el.south_line][i];
 		i++;
 		j++;
 	}
-	map.el.s_path[j] = '\0';
+	g_map.el.s_path[j] = '\0';
 	return ("");
 }
 
@@ -104,23 +104,23 @@ char	*get_north_texture(void)
 
 	i = 2;
 	count = 0;
-	while (map.el.elem[map.el.north_line][i] == ' ')
+	while (g_map.el.elem[g_map.el.north_line][i] == ' ')
 		i++;
 	j = i;
 	i = i - 1;
-	while (map.el.elem[map.el.north_line][i++] != '\0')
+	while (g_map.el.elem[g_map.el.north_line][i++] != '\0')
 		count++;
 	i = j;
 	j = 0;
-	if (!(map.el.n_path = malloc(sizeof(char) * count + 1)))
+	if (!(g_map.el.n_path = malloc(sizeof(char) * count + 1)))
 		return (NULL);
-	while (map.el.elem[map.el.north_line][i] != '\0')
+	while (g_map.el.elem[g_map.el.north_line][i] != '\0')
 	{
-		map.el.n_path[j] = map.el.elem[map.el.north_line][i];
+		g_map.el.n_path[j] = g_map.el.elem[g_map.el.north_line][i];
 		i++;
 		j++;
 	}
-	map.el.n_path[j] = '\0';
+	g_map.el.n_path[j] = '\0';
 	return ("");
 }
 
@@ -132,22 +132,22 @@ char	*get_sprite_texture(void)
 
 	i = 2;
 	count = 0;
-	while (map.el.elem[map.el.sprite_line][i] == ' ')
+	while (g_map.el.elem[g_map.el.sprite_line][i] == ' ')
 		i++;
 	j = i;
 	i = i - 1;
-	while (map.el.elem[map.el.sprite_line][i++] != '\0')
+	while (g_map.el.elem[g_map.el.sprite_line][i++] != '\0')
 		count++;
 	i = j;
 	j = 0;
-	if (!(map.el.spr_path = malloc(sizeof(char) * count + 1)))
+	if (!(g_map.el.spr_path = malloc(sizeof(char) * count + 1)))
 		return (NULL);
-	while (map.el.elem[map.el.sprite_line][i] != '\0')
+	while (g_map.el.elem[g_map.el.sprite_line][i] != '\0')
 	{
-		map.el.spr_path[j] = map.el.elem[map.el.sprite_line][i];
+		g_map.el.spr_path[j] = g_map.el.elem[g_map.el.sprite_line][i];
 		i++;
 		j++;
 	}
-	map.el.spr_path[j] = '\0';
+	g_map.el.spr_path[j] = '\0';
 	return ("");
 }
