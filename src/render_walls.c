@@ -6,7 +6,7 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:35:41 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/24 18:29:24 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/01/25 07:43:59 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	project_wall(void)
 		len = g_map.ray[x].distance * cos(normalize_angle(g_map.ray[x].angle -
 			g_map.player.rotation_angle - (M_PI / 6)));
 		g_util.wallstripheight = floor((g_map.wall_height / len) *
-			g_map.distanceProjPlane);
+			g_map.distanceprojplane);
 		walltoppixel = (g_map.el.res_y / 2) - (g_util.wallstripheight / 2);
 		walltoppixel = (walltoppixel < 0) ? 0 : walltoppixel;
 		wallbottompixel = (g_map.el.res_y / 2) + (g_util.wallstripheight / 2);

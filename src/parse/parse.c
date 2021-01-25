@@ -6,7 +6,7 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 18:19:25 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/24 19:46:31 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/01/25 10:30:58 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,38 +31,23 @@ int		parse_map(int fd)
 	char *line;
 	char *tmp;
 
-	line = "";
+	line = ft_strdup("");
 	g_map.parser->map_string = ft_strdup("");
-	/*while (line[0] == '\0')
-	{	get_next_line(fd, &line);
-		free(line);
+	while (line[0] == '\0')
+	{
+		tmp = line;
+		get_next_line(fd, &line);
+		free(tmp);
 	}
-		tmp = g_map.parser->map_string;
-	g_map.parser->map_string = ft_strjoin(g_map.parser->map_string, line);
-	free(tmp);
-	tmp = g_map.parser->map_string;
-	g_map.parser->map_string = ft_strjoin(g_map.parser->map_string, "\n");
-	free(tmp);*/
+	ft_join(line, "\n");
 	while (get_next_line(fd, &line))
 	{
 		if (line[0] == '\0')
 			write_error_one();
-			tmp = g_map.parser->map_string;
-	g_map.parser->map_string = ft_strjoin(g_map.parser->map_string, line);
-	free(tmp);
-	tmp = g_map.parser->map_string;
-	g_map.parser->map_string = ft_strjoin(g_map.parser->map_string, "\n");
-	free(tmp);
-		free(line);
+		ft_join(line, "\n");
 		line = NULL;
 	}
-	tmp = g_map.parser->map_string;
-	g_map.parser->map_string = ft_strjoin(g_map.parser->map_string, line);
-	free(tmp);
-	tmp = g_map.parser->map_string;
-	g_map.parser->map_string = ft_strjoin(g_map.parser->map_string, "\0");
-	free(tmp);
-	free(line);
+	ft_join(line, "\0");
 	line = NULL;
 	return (1);
 }
@@ -81,27 +66,14 @@ int		parse_line(int fd)
 			get_next_line(fd, &line);
 		if (!ft_isdigit(line[0]))
 		{
-			tmp = g_map.parser->data;
-			g_map.parser->data = ft_strjoin(g_map.parser->data, line);
-			free(tmp);
-			tmp = g_map.parser->data;
-			g_map.parser->data = ft_strjoin(g_map.parser->data, "\n");
-			free(tmp);
-			free(line);
+			ft_join2(line, "\n");
 			line = NULL;
 			i++;
 		}
 	}
 	while (line[0] == '\0')
 		get_next_line(fd, &line);
-	tmp = g_map.parser->data;
-			g_map.parser->data = ft_strjoin(g_map.parser->data, line);
-			free(tmp);
-			tmp = g_map.parser->data;
-			g_map.parser->data = ft_strjoin(g_map.parser->data, "\0");
-			free(tmp);
-			
-	free(line);
+	ft_join2(line, "\0");
 	line = NULL;
 	return (1);
 }
@@ -116,11 +88,11 @@ int		parse_main(void)
 	if (parse_map(fd) < 0)
 		return (-1);
 	close(fd);
+	if (get_elements() < 0)
+		return (-1);
 	if (create_map() < 0)
 		return (-1);
 	if (create_good_size_map() < 0)
-		return (-1);
-	if (get_elements() < 0)
 		return (-1);
 	if (check_elements_errors() < 0)
 		return (-1);

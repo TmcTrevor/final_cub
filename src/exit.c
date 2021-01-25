@@ -6,7 +6,7 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 11:26:12 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/24 18:23:54 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/01/25 08:31:53 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,10 @@ int		exit_all(void)
 	free_map();
 	free_parser();
 	free_elem();
-	free_spr();
-	free_ray();
+	if (g_map.spr)
+		free_spr();
+	if (g_map.ray)
+		free_ray();
 	exit(0);
 	return (-1);
 }

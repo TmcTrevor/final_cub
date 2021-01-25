@@ -6,7 +6,7 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 17:58:41 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/24 19:12:30 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/01/25 09:42:14 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,29 @@ int		error(void)
 
 int		get_resolution(char *c)
 {
-	int i;
-
-	i = 1;
-	if (*c == 'R')
+	g_a = ft_split(c, ' ');
+	if (len_of_line(g_a) != 3)
+		error();
+	mlx_get_screen_size(g_mlx.mlx_ptr, &g_winmax, &g_heightmax);
+	if (ft_digit2(g_a[1]) < 0 || ft_digit2(g_a[2]) < 0)
+		error();
+	if (check_digits(g_a[1]) > 0)
 	{
-		c++;
-		while (c[i] == ' ')
-			i++;
-		if (*c == '\0' || !(isdigit(c[i])))
-			return (error());
-		g_map.el.res_x = ft_atoi(c);
-		while (*c == ' ')
-			c++;
-		while (ft_isdigit(*c))
-			c++;
-		i = 1;
-		while (c[i] == ' ')
-			i++;
-		if (*c == '\0' || !(isdigit(c[i])))
-			return (error());
-		g_map.el.res_y = ft_atoi(c);
+		g_map.el.res_x = ft_atoi(g_a[1]);
+		if (g_map.el.res_x > g_winmax)
+			g_map.el.res_x = g_winmax;
 	}
+	else
+		g_map.el.res_x = g_winmax;
+	if (check_digits(g_a[2]) > 0)
+	{
+		g_map.el.res_y = ft_atoi(g_a[2]);
+		if (g_map.el.res_y > g_heightmax)
+			g_map.el.res_y = g_heightmax;
+	}
+	else
+		g_map.el.res_y = g_heightmax;
+	free_str_1(g_a, len_of_line(g_a));
 	return (1);
 }
 

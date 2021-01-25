@@ -6,16 +6,15 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 16:09:33 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/24 18:18:50 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/01/25 09:53:23 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXAMPLE_H
-# define EXAMPLE_H
+#ifndef CUBE3D_H
+# define CUBE3D_H
 
 # include <math.h>
 # include "mlx.h"
-# include "../../ft_printf.h"
 # include "fcntl.h"
 # include "map.h"
 # include "player.h"
@@ -79,40 +78,47 @@
 # define MLXK_TG 12
 # define FOV_ANGLE 1.04719755
 
-typedef struct	s_img
+typedef struct		s_img
 {
-	void		*img_ptr;
-	int			*data;
-	int			size_l;
-	int			bpp;
-	int			endian;
-}				t_img;
+	void			*img_ptr;
+	int				*data;
+	int				size_l;
+	int				bpp;
+	int				endian;
+}					t_img;
 
-typedef struct	s_mlx
+typedef struct		s_mlx
 {
-	void		*mlx_ptr;
-	void		*win;
+	void			*mlx_ptr;
+	void			*win;
 
-}				t_mlx;
+}					t_mlx;
 
-void		dimension(t_map *map);
-void		draw(void);
-int			nie(int key, void *p);
+void				dimension(t_map *map);
+void				draw(void);
+int					nie(int key, void *p);
 
-t_mlx	g_mlx;
-t_img 	g_img; 
-t_map	g_map;
+t_mlx				g_mlx;
+t_img				g_img;
+t_map				g_map;
+int					g_winmax;
+int					g_heightmax;
+int					g_i;
+char				**g_a;
 
-int			start_game();
-void		init_struct();
-void		read_map(t_map *map);
+int					start_game();
+void				init_struct();
+void				read_map(t_map *map);
+void				read_2d_map(t_map *map);
 
-void		read_2d_map(t_map *map);
-
-t_map		*new_game(t_map *map);
-double		normelize_angel(double angle);
-void		image_put_pixel(int x, int y, int color);
-void		line(int x0, int y0, int x1, int y1, int color);
-double		ray_len(t_ray *ray);
+t_map				*new_game(t_map *map);
+double				normelize_angel(double angle);
+void				image_put_pixel(int x, int y, int color);
+void				line(int x0, int y0, int x1, int y1, int color);
+double				ray_len(t_ray *ray);
+int					check_digits(char *c);
+int					mlx_get_screen_size(void *mlx_ptr, int *sizex,
+					int *sizey);
+void				free_str_1(char **str, int o);
 
 #endif

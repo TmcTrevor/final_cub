@@ -6,7 +6,7 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 15:55:07 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/24 18:19:46 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/01/25 10:14:07 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int		check_borders_columns(void)
 		j = 0;
 		while (g_map.parser->grid[i][j] != '\0')
 			j++;
-		if (g_map.parser->grid[i][j - 1] != '1')
+		if (g_map.parser->grid[i][j - 1] != '1' &&
+			g_map.parser->grid[i][j - 1] != ' ')
 			return_error_exit();
 		i++;
 	}
