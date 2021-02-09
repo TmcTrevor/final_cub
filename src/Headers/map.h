@@ -6,7 +6,7 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 18:15:42 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/25 09:28:32 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/02/09 17:27:06 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ float					normalize_angle(float angle);
 int						is_wall2(float a, float b, char c);
 int						check_map_errors();
 int						check_map_errors();
-int						return_error_exit(void);
+int						return_error_exit(int i);
 void					free_parser();
 int						ft_digit2(char *c);
 int						len_of_line(char **str);

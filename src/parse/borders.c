@@ -6,15 +6,16 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 15:55:07 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/25 10:14:07 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/02/09 17:26:24 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/cube3d.h"
 
-int		return_error_exit(void)
+int		return_error_exit(int i)
 {
 	write(1, "Error\n", 6);
+	printf("%d\n",i);
 	write(1, "Map not surrounded by 1\n", 24);
 	return (exit_all());
 }
@@ -32,14 +33,14 @@ int		check_borders_columns(void)
 			j++;
 		if (g_map.parser->grid[i][j - 1] != '1' &&
 			g_map.parser->grid[i][j - 1] != ' ')
-			return_error_exit();
+			return_error_exit(1);
 		i++;
 	}
 	i = 0;
 	while (g_map.parser->grid[i] != NULL)
 	{
 		if (g_map.parser->grid[i][0] != '1' && g_map.parser->grid[i][0] != ' ')
-			return_error_exit();
+			return_error_exit(2);
 		i++;
 	}
 	return (1);
@@ -53,7 +54,7 @@ int		check_borders_lines(void)
 	while (g_map.parser->grid[0][i] != '\0')
 	{
 		if (g_map.parser->grid[0][i] != '1' && g_map.parser->grid[0][i] != ' ')
-			return_error_exit();
+			return_error_exit(3);
 		i++;
 	}
 	i = 0;
@@ -61,7 +62,7 @@ int		check_borders_lines(void)
 	{
 		if ((g_map.parser->grid[g_map.parser->line_nbr - 1][i] != '1') &&
 			(g_map.parser->grid[g_map.parser->line_nbr - 1][i] != ' '))
-			return_error_exit();
+			return_error_exit(4);
 		i++;
 	}
 	return (1);

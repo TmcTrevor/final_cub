@@ -6,7 +6,7 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 17:58:15 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/24 18:32:23 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/02/09 17:19:02 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int				write_error_floor(int i)
 		g_map.el.elem[g_map.el.f_l][i] != ' ')
 	{
 		write(1, "Error\n", 6);
-		write(1, "Wrong arguments\n", 16);
+		write(1, "Wrong floor arguments\n", 21);
 		exit_all();
 	}
 	return (-1);
@@ -29,7 +29,7 @@ int				write_error_end_floor(int i)
 	if (g_map.el.elem[g_map.el.f_l][i] != ' ')
 	{
 		write(1, "Error\n", 6);
-		write(1, "Wrong arguments\n", 16);
+		write(1, "Wrong floor arguments\n", 21);
 		exit_all();
 	}
 	return (-1);
@@ -54,7 +54,7 @@ int				get_floor_color(void)
 	int i;
 
 	i = 1;
-	while (g_map.el.elem[g_map.el.f_l][++i] == ' ')
+	while (g_map.el.elem[g_map.el.f_l][i] == 32)
 		i++;
 	i = simple_atoi(i);
 	while (g_map.el.elem[g_map.el.f_l][i] >= '0' &&
