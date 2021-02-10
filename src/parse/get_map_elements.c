@@ -6,7 +6,7 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 17:58:41 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/25 09:42:14 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/02/10 16:06:34 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ int		create_elements_lines(void)
 
 int		get_elements(void)
 {
+	if (g_map.parser->data[0] == '\0')
+		empty_file();
 	g_map.el.elem = ft_split(g_map.parser->data, '\n');
 	if (create_elements_lines() < 0)
 		return (-1);

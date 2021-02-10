@@ -6,7 +6,7 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 18:15:42 by mokhames          #+#    #+#             */
-/*   Updated: 2021/02/10 12:29:41 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/02/10 16:44:45 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ int						return_error_exit();
 void					free_parser();
 int						ft_digit2(char *c);
 int						len_of_line(char **str);
-
+void					empty_file(void);
+int						check_color_range(void);
 #endif

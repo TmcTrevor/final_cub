@@ -6,7 +6,7 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 14:51:28 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/25 07:43:40 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/02/10 16:35:42 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		player_data(void)
 	g_map.player.posx_p += g_map.wall_width / 2;
 	g_map.player.posy_p += g_map.wall_height / 2;
 	g_map.player.mov_speed = 30;
-	g_map.player.rotation_speed = 2 * (M_PI / 180);
+	g_map.player.rotation_speed = 40 * (M_PI / 180);
 	g_map.el.wsw = 1;
 	g_map.el.nb_rays = g_map.el.res_x / g_map.el.wsw;
 	g_map.distanceprojplane = (g_map.el.res_x / 2) / tan(FOV_ANGLE / 2);

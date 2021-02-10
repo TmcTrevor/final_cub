@@ -6,7 +6,7 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 11:33:47 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/24 18:29:39 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/02/10 16:30:32 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	ft_rl_dir(int x, int y)
 	n = (sin(g_map.player.rotation_angle + M_PI / 6 + (M_PI / 2)) * move);
 	x = g_map.player.posx_p + n * 0.2;
 	y = g_map.player.posy_p - m * 0.2;
-	if (!is_wall2(x, b, '1') && !is_wall2(x, b, '2'))
+	if (!is_wall2(x, b, '1'))
 		g_map.player.posx_p += m * 0.2;
-	if (!is_wall2(a, y, '1') && !is_wall2(a, y, '2'))
+	if (!is_wall2(a, y, '1'))
 		g_map.player.posy_p += n * 0.2;
 }
 
@@ -88,9 +88,9 @@ void	fking_move(void)
 		x = (g_map.player.posx_p + m * 0.2);
 		y = (g_map.player.posy_p + n * 0.2);
 	}
-	if (!is_wall2(x, g_map.util.b, '1') && !is_wall2(x, g_map.util.b, '2'))
+	if (!is_wall2(x, g_map.util.b, '1'))
 		g_map.player.posx_p += m * 0.2;
-	if (!is_wall2(g_map.util.a, y, '1') && !is_wall2(g_map.util.b, y, '2'))
+	if (!is_wall2(g_map.util.a, y, '1'))
 		g_map.player.posy_p += n * 0.2;
 }
 

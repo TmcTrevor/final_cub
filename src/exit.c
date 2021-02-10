@@ -6,7 +6,7 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 11:26:12 by mokhames          #+#    #+#             */
-/*   Updated: 2021/02/10 12:12:13 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/02/10 16:10:41 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,10 @@ void	free_elem(void)
 	i = -1;
 	if (g_map.el.elem)
 	{
-		while (++i < 8)
-		{
-			free(g_map.el.elem[i]);
-			g_map.el.elem[i] = 0;
-		}
 		free(g_map.el.elem);
 		g_map.el.elem = 0;
 	}
 	free_paths();
-	if (g_map.el.spr_path)
-	{
-		free(g_map.el.spr_path);
-		g_map.el.spr_path = 0;
-	}
 }
 
 void	free_win(void)

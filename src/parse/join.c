@@ -6,7 +6,7 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 07:11:37 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/25 09:29:25 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/02/10 17:30:05 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,16 @@ void	ft_join(char *line, char *c)
 
 void	ft_join2(char *line, char *c)
 {
-	char *tmp;
-
+	char	*tmp;
+	int		i;
+	i = 0;
 	tmp = g_map.parser->data;
-	g_map.parser->data = ft_strjoin(g_map.parser->data, line);
-	free(tmp);
+	while (line[i] == ' ')
+		i++;
+	if (!ft_isdigit(line[i]))
+	{	g_map.parser->data = ft_strjoin(g_map.parser->data, line);
+		free(tmp);
+	}
 	tmp = g_map.parser->data;
 	g_map.parser->data = ft_strjoin(g_map.parser->data, c);
 	free(tmp);
