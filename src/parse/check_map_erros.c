@@ -6,7 +6,7 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 09:39:54 by mokhames          #+#    #+#             */
-/*   Updated: 2021/02/09 17:29:14 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/02/10 12:29:45 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,6 @@ int		check_map_characters(void)
 
 int		check_around(int i, int j)
 {
-	/*if (g_map.parser->grid[i - 1][j + 1] == ' ')
-		return (-1);
-	if (g_map.parser->grid[i - 1][j - 1] == ' ')
-		return (-1);
-	if (g_map.parser->grid[i + 1][j - 1] == ' ')
-		return (-1);
-	if (g_map.parser->grid[i + 1][j + 1] == ' ')
-		return (-1);*/
 	if (g_map.parser->grid[i][j - 1] == ' ')
 		return (-1);
 	if (g_map.parser->grid[i][j + 1] == ' ')
@@ -71,9 +63,9 @@ int		check_spaces_algo(void)
 		while (g_map.parser->grid[i][j] != '\0')
 		{
 			if ((g_map.parser->grid[i][j] == '0' && (check_around(i, j) < 0)))
-				return (return_error_exit(5));
+				return (return_error_exit());
 			if ((g_map.parser->grid[i][j] == '2' && (check_around(i, j) < 0)))
-				return (return_error_exit(6));
+				return (return_error_exit());
 			j++;
 		}
 		i++;

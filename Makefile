@@ -17,7 +17,7 @@ all : libft_make mlxmake $(NAME)
 $(NAME) : ${OBJS}
 	@cp ./minilibx/libmlx.dylib .
 	@cp ./libft/libft.a .
-	@gcc  -g  ${FLAGS} -I /usr/local/include -o $(NAME) ${OBJS} libft.a -I ./minilibx libmlx.dylib -L /usr/local/lib -lmlx -framework Opengl -framework AppKit 
+	@gcc   ${FLAGS} -I /usr/local/include -o $(NAME) ${OBJS} libft.a -I ./minilibx libmlx.dylib -L /usr/local/lib -lmlx -framework Opengl -framework AppKit 
 
 libft_make : 
 	@ $(MAKE) -C libft

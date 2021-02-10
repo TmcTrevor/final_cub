@@ -6,7 +6,7 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 11:26:12 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/25 08:31:53 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/02/10 12:12:13 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,11 @@ void	free_spr(void)
 	int i;
 
 	i = 0;
-	while (i < g_map.numsprites)
+	if (g_map.spr)
 	{
-		free(g_map.spr[i]->ptr);
-		g_map.spr[i]->ptr = 0;
-		free(g_map.spr[i]->data);
-		g_map.spr[i]->data = 0;
-		free(g_map.spr[i]);
-		g_map.spr[i] = 0;
-		i++;
+		free(g_map.spr);
+		g_map.spr = 0;
 	}
-	free(g_map.spr);
-	g_map.spr = 0;
 }
 
 int		exit_all(void)

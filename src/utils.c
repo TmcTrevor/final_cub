@@ -6,7 +6,7 @@
 /*   By: mokhames <mokhames@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:17:56 by mokhames          #+#    #+#             */
-/*   Updated: 2021/01/24 18:28:17 by mokhames         ###   ########.fr       */
+/*   Updated: 2021/02/10 11:33:30 by mokhames         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,14 @@ void	init_spr(void)
 	{
 		if (!(g_map.spr[i] = malloc(sizeof(t_spr))))
 			return ;
-		g_map.spr[i]->ptr = mlx_xpm_file_to_image(
+		if (!(g_map.spr[i]->ptr = mlx_xpm_file_to_image(
 			g_mlx.mlx_ptr, g_map.el.spr_path,
-			&g_map.tex1[4].texwidth, &g_map.tex1[4].texheight);
+			&g_map.tex1[4].texwidth, &g_map.tex1[4].texheight)))
+		{
+			write(1, "Error\n", 6);
+			write(1, "s wrong path texture\n", 20);
+			exit_all();
+		}
 		g_map.spr[i]->data = (int *)mlx_get_data_addr(g_map.spr[i]->ptr,
 													&us,
 													&us,
